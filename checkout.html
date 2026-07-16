@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | HASSI Signature Noir</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        .checkout-page {
+            padding: 80px 5%;
+            min-height: 70vh;
+        }
+
+        .checkout-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .checkout-box {
+            background: #1a1a1a;
+            padding: 35px;
+            border-radius: 16px;
+        }
+
+        .checkout-box h2 {
+            color: #d4af37;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .checkout-box input,
+        .checkout-box textarea,
+        .checkout-box select {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 15px;
+            background: #0b0b0b;
+            border: 1px solid #333;
+            color: #fff;
+            border-radius: 10px;
+            outline: none;
+            font-size: 15px;
+        }
+
+        .checkout-box input:focus,
+        .checkout-box textarea:focus,
+        .checkout-box select:focus {
+            border-color: #d4af37;
+        }
+
+        .order-summary {
+            background: #0b0b0b;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .order-summary .row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            color: #888;
+            font-size: 15px;
+        }
+
+        .order-summary .row.total {
+            border-top: 1px solid #333;
+            padding-top: 15px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #d4af37;
+        }
+
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 15px 0 20px;
+        }
+
+        .payment-method {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 20px;
+            background: #0b0b0b;
+            border: 2px solid #333;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .payment-method:hover {
+            border-color: #d4af37;
+        }
+
+        .payment-method.active {
+            border-color: #d4af37;
+            background: #1a1a1a;
+        }
+
+        .payment-method input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #d4af37;
+        }
+
+        .payment-method label {
+            color: #fff;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .payment-method .method-icon {
+            font-size: 22px;
+            color: #d4af37;
+        }
+
+        .payment-note {
+            background: #0b0b0b;
+            padding: 12px 18px;
+            border-radius: 10px;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 3px solid #28a745;
+        }
+
+        .payment-note i {
+            color: #28a745;
+            font-size: 18px;
+        }
+
+        .payment-note span {
+            color: #888;
+            font-size: 13px;
+        }
+
+        .place-order-btn {
+            width: 100%;
+            padding: 16px;
+            background: #d4af37;
+            color: #000;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+
+        .place-order-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .place-order-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .order-success {
+            display: none;
+            text-align: center;
+            padding: 40px;
+            background: #1a1a1a;
+            border-radius: 16px;
+        }
+
+        .order-success.show {
+            display: block;
+        }
+
+        .order-success i {
+            font-size: 60px;
+            color: #28a745;
+        }
+
+        .order-success h2 {
+            color: #d4af37;
+            margin: 20px 0 10px;
+        }
+
+        .order-success .order-id {
+            color: #d4af37;
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        .order-success .payment-info {
+            color: #888;
+            font-size: 14px;
+            margin-top: 15px;
+        }
+
+        .whatsapp-note {
+            background: #0b0b0b;
+            padding: 12px 18px;
+            border-radius: 10px;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 3px solid #25D366;
+        }
+
+        .whatsapp-note i {
+            color: #25D366;
+            font-size: 18px;
+        }
+
+        .whatsapp-note span {
+            color: #888;
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+            .checkout-box {
+                padding: 20px;
+            }
+
+            .payment-method {
+                padding: 12px 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo">HASSI <span>Signature Noir</span></a>
+            <button class="menu-btn" id="menuBtn"><i class="fa-solid fa-bars"></i></button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#products">Shop</a></li>
+                <li><a href="orders.html">My Orders</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="tracking.html">Track Order</a></li>
+            </ul>
+            <div class="nav-icons">
+                <a href="#"><i class="fa-regular fa-user"></i></a>
+                <a href="#" id="cart-icon">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cart-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ===== CHECKOUT ===== -->
+    <section class="checkout-page">
+        <div class="checkout-container">
+
+            <!-- Checkout Form -->
+            <div id="checkoutFormContainer">
+                <div class="section-heading">
+                    <span>✦ Complete Order ✦</span>
+                    <h2>Checkout</h2>
+                </div>
+
+                <div class="checkout-box">
+                    <h2>📋 Billing Details</h2>
+                    <form id="checkoutForm">
+                        <input type="text" id="fullName" placeholder="Full Name" required>
+                        <input type="email" id="emailAddress" placeholder="Email Address" required>
+                        <input type="tel" id="phoneNumber" placeholder="Phone Number" required>
+                        <textarea id="shippingAddress" placeholder="Shipping Address" required></textarea>
+
+                        <!-- Payment Methods -->
+                        <h2 style="margin-top:25px; font-size:20px;">💳 Payment Method</h2>
+
+                        <div class="payment-methods">
+                            <div class="payment-method active" style="border-color:#d4af37; background:#1a1a1a;">
+                                <input type="radio" name="payment" value="Cash on Delivery" checked>
+                                <span class="method-icon"><i class="fa-solid fa-money-bill-wave"></i></span>
+                                <label style="font-weight:600; color:#d4af37;">Cash on Delivery</label>
+                                <span style="color:#888; font-size:13px; margin-left:auto;">💵 Pay on arrival</span>
+                            </div>
+                        </div>
+
+                        <div class="payment-note">
+                            <i class="fa-solid fa-shield"></i>
+                            <span>✅ No advance payment required. Pay only when you receive your order.</span>
+                        </div>
+
+                        <!-- Order Summary -->
+                        <h2 style="margin-top:30px; font-size:20px;">💰 Order Summary</h2>
+                        <div class="order-summary" id="orderSummary">
+                            <!-- Loaded by JavaScript -->
+                        </div>
+
+                        <!-- WhatsApp Note -->
+                        <div class="whatsapp-note">
+                            <i class="fa-brands fa-whatsapp"></i>
+                            <span>📱 You will receive WhatsApp confirmation on your phone.</span>
+                        </div>
+
+                        <button type="submit" class="place-order-btn" id="placeOrderBtn">
+                            ✅ Place Order
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Order Success -->
+            <div class="order-success" id="orderSuccess">
+                <i class="fa-regular fa-circle-check"></i>
+                <h2>🎉 Order Placed Successfully!</h2>
+                <p>Your order has been received and is being processed.</p>
+                <p class="order-id" id="orderIdDisplay"></p>
+                <p class="payment-info">💵 Payment Method: Cash on Delivery</p>
+                <div
+                    style="margin-top:15px; padding:15px; background:#0b0b0b; border-radius:10px; border-left:3px solid #25D366;">
+                    <i class="fa-brands fa-whatsapp" style="color:#25D366; font-size:20px;"></i>
+                    <span style="color:#888; font-size:14px; margin-left:10px;">📱 Order confirmation sent to
+                        WhatsApp!</span>
+                </div>
+                <br>
+                <a href="orders.html" class="btn-primary" style="display:inline-block;">📦 View My Orders</a>
+                <a href="index.html" class="btn-primary"
+                    style="display:inline-block; margin-left:10px; background:#333;">🏠 Continue Shopping</a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-box">
+                <h3>HASSI</h3>
+                <p>Luxury perfumes crafted for elegance.</p>
+            </div>
+            <div class="footer-box">
+                <h3>Contact</h3>
+                <p>hassanali590110@gmail.com</p>
+                <p>+92 332 3365097</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 HASSI Signature Noir.</p>
+        </div>
+    </footer>
+
+    <!-- ===== COMPLETE JAVASCRIPT ===== -->
+    <script type="module">
+        // ====================================
+        // CHECKOUT PAGE - WITH WHATSAPP NOTIFICATION
+        // ====================================
+
+        import { auth, db, collection, addDoc } from './firebase.js';
+
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        function formatPrice(price) {
+            return Number(price).toLocaleString('en-PK');
+        }
+
+        // ====================================
+        // WHATSAPP NOTIFICATION
+        // ====================================
+        function sendWhatsAppNotification(order) {
+            const adminNumber = '923323365097';
+
+            let itemsList = '';
+            order.items.forEach((item, index) => {
+                itemsList += `${index + 1}. ${item.name} × ${item.quantity || 1} - Rs. ${formatPrice(item.price)}\n`;
+            });
+
+            const message = `🛍️ *NEW ORDER RECEIVED!* 🛍️%0A%0A` +
+                `📦 *Order #${order.id}*%0A` +
+                `📅 Date: ${order.date}%0A` +
+                `⏳ Status: ${order.status}%0A%0A` +
+                `─────────────────%0A` +
+                `📋 *Customer Details*%0A` +
+                `👤 Name: ${order.billing.name}%0A` +
+                `📧 Email: ${order.billing.email}%0A` +
+                `📞 Phone: ${order.billing.phone}%0A` +
+                `📍 Address: ${order.billing.address}%0A%0A` +
+                `─────────────────%0A` +
+                `🛒 *Order Items*%0A` +
+                `${itemsList}%0A` +
+                `─────────────────%0A` +
+                `💰 *Payment Details*%0A` +
+                `💳 Method: ${order.paymentMethod}%0A` +
+                `💵 Total: Rs. ${formatPrice(order.total)}%0A%0A` +
+                `─────────────────%0A` +
+                `✅ *Order placed successfully!*%0A` +
+                `👨‍💼 Admin: Please process this order.%0A%0A` +
+                `Thank you for choosing HASSI Signature Noir! ✨`;
+
+            window.open(`https://wa.me/${adminNumber}?text=${message}`, '_blank');
+        }
+
+        // ====================================
+        // UPDATE SUMMARY
+        // ====================================
+        function updateSummary() {
+            const summary = document.getElementById('orderSummary');
+            if (!summary) return;
+
+            if (cart.length === 0) {
+                summary.innerHTML = `<p style="color:#888; text-align:center;">Your cart is empty.</p>`;
+                document.getElementById('placeOrderBtn').disabled = true;
+                return;
+            }
+
+            document.getElementById('placeOrderBtn').disabled = false;
+
+            let subtotal = 0;
+            let itemsHTML = '';
+
+            cart.forEach(item => {
+                const price = Number(item.price) || 0;
+                subtotal += price;
+                itemsHTML += `
+                    <div class="row">
+                        <span>${item.name}</span>
+                        <span>Rs. ${formatPrice(price)}</span>
+                    </div>
+                `;
+            });
+
+            const tax = Math.round(subtotal * 0.05);
+            const total = subtotal + tax;
+
+            summary.innerHTML = `
+                ${itemsHTML}
+                <div class="row">
+                    <span>Subtotal</span>
+                    <span>Rs. ${formatPrice(subtotal)}</span>
+                </div>
+                <div class="row">
+                    <span>Tax (5%)</span>
+                    <span>Rs. ${formatPrice(tax)}</span>
+                </div>
+                <div class="row total">
+                    <span>Total</span>
+                    <span>Rs. ${formatPrice(total)}</span>
+                </div>
+                <div class="row" style="color:#28a745; font-size:13px; border-top:1px solid #222; padding-top:10px; margin-top:5px;">
+                    <span>💵 Payment</span>
+                    <span>Cash on Delivery</span>
+                </div>
+            `;
+        }
+
+        // ====================================
+        // PLACE ORDER - WITH WHATSAPP
+        // ====================================
+        document.getElementById('checkoutForm')?.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById('fullName').value.trim();
+            const email = document.getElementById('emailAddress').value.trim();
+            const phone = document.getElementById('phoneNumber').value.trim();
+            const address = document.getElementById('shippingAddress').value.trim();
+
+            if (!name || !email || !phone || !address) {
+                alert('❌ Please fill all required fields!');
+                return;
+            }
+
+            if (cart.length === 0) {
+                alert('❌ Your cart is empty!');
+                return;
+            }
+
+            // Calculate total
+            let subtotal = 0;
+            cart.forEach(item => {
+                subtotal += Number(item.price) || 0;
+            });
+            const tax = Math.round(subtotal * 0.05);
+            const total = subtotal + tax;
+
+            // Create order
+            const order = {
+                id: 'ORD-' + Date.now().toString().slice(-8),
+                items: cart.map(item => ({
+                    name: item.name,
+                    price: Number(item.price) || 0,
+                    quantity: 1,
+                    image: item.image || ''
+                })),
+                billing: { name, email, phone, address },
+                paymentMethod: 'Cash on Delivery',
+                subtotal: subtotal,
+                tax: tax,
+                total: total,
+                status: 'processing',
+                date: new Date().toLocaleDateString(),
+                createdAt: new Date().toISOString()
+            };
+
+            try {
+                // 1. Save to Firebase
+                const docRef = await addDoc(collection(db, "orders"), {
+                    ...order,
+                    createdAt: new Date().toISOString(),
+                    status: 'processing'
+                });
+                console.log('✅ Order saved to Firebase! ID:', docRef.id);
+
+                // 2. Save to localStorage
+                const orders = JSON.parse(localStorage.getItem('orders')) || [];
+                orders.push(order);
+                localStorage.setItem('orders', JSON.stringify(orders));
+
+                // 3. 🔥 SEND WHATSAPP NOTIFICATION
+                sendWhatsAppNotification(order);
+
+                // 4. Clear cart
+                localStorage.setItem('cart', JSON.stringify([]));
+                cart = [];
+
+                // 5. Show success message
+                document.getElementById('checkoutFormContainer').style.display = 'none';
+                document.getElementById('orderSuccess').classList.add('show');
+                document.getElementById('orderIdDisplay').textContent = 'Order #' + order.id;
+
+                updateCartUI();
+
+                alert('✅ Order placed successfully! WhatsApp confirmation sent.');
+
+            } catch (error) {
+                console.error('❌ Firebase Error:', error);
+                alert('⚠️ Order saved locally. Please check internet connection.');
+
+                // Fallback
+                const orders = JSON.parse(localStorage.getItem('orders')) || [];
+                orders.push(order);
+                localStorage.setItem('orders', JSON.stringify(orders));
+                localStorage.setItem('cart', JSON.stringify([]));
+                cart = [];
+
+                // 🔥 SEND WHATSAPP EVEN IF FIREBASE FAILS
+                sendWhatsAppNotification(order);
+
+                document.getElementById('checkoutFormContainer').style.display = 'none';
+                document.getElementById('orderSuccess').classList.add('show');
+                document.getElementById('orderIdDisplay').textContent = 'Order #' + order.id;
+                updateCartUI();
+            }
+        });
+
+        // ====================================
+        // CART FUNCTIONS
+        // ====================================
+        function updateCartUI() {
+            const items = document.getElementById('cart-items');
+            const total = document.getElementById('cart-total');
+            const count = document.getElementById('cart-count');
+
+            if (!items) return;
+
+            let totalPrice = 0;
+            if (cart.length === 0) {
+                items.innerHTML = `<p style="color:#888; text-align:center; padding:40px 0;">Your cart is empty.</p>`;
+            } else {
+                items.innerHTML = '';
+                cart.forEach((item, index) => {
+                    totalPrice += item.price;
+                    items.innerHTML += `
+                        <div style="display:flex; align-items:center; gap:15px; padding:12px 0; border-bottom:1px solid #333;">
+                            <img src="${item.image || 'https://via.placeholder.com/60'}" style="width:60px; height:60px; object-fit:cover; border-radius:10px;">
+                            <div style="flex:1;">
+                                <h4 style="font-size:14px;">${item.name}</h4>
+                                <p style="color:#d4af37; font-weight:600;">Rs. ${formatPrice(item.price)}</p>
+                            </div>
+                            <button onclick="removeFromCart(${index})" style="background:transparent; border:none; color:#ff4444; font-size:18px; cursor:pointer;">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
+                        </div>
+                    `;
+                });
+            }
+            if (total) total.textContent = formatPrice(totalPrice);
+            if (count) count.textContent = cart.length;
+        }
+
+        window.removeFromCart = function (index) {
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartUI();
+            updateSummary();
+        };
+
+        // ====================================
+        // CART TOGGLE
+        // ====================================
+        document.getElementById('cart-icon')?.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.getElementById('cart-sidebar')?.classList.add('active');
+        });
+
+        document.getElementById('close-cart')?.addEventListener('click', function () {
+            document.getElementById('cart-sidebar')?.classList.remove('active');
+        });
+
+        // ====================================
+        // MOBILE MENU
+        // ====================================
+        document.getElementById('menuBtn')?.addEventListener('click', function () {
+            document.getElementById('navMenu')?.classList.toggle('active');
+        });
+
+        // ====================================
+        // LOADER
+        // ====================================
+        window.addEventListener('load', function () {
+            const loader = document.getElementById('loader');
+            if (loader) setTimeout(() => loader.classList.add('hide'), 800);
+            updateCartUI();
+            updateSummary();
+
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            if (user) {
+                document.getElementById('fullName').value = user.name || '';
+                document.getElementById('emailAddress').value = user.email || '';
+            }
+        });
+
+        console.log('✅ Checkout Page Loaded! (WhatsApp Notification Enabled)');
+    </script>
+        <!-- ===== WHATSAPP FLOATING BUTTON ===== -->
+        <a href="https://wa.me/923323365097?text=Hello%20HASSI%20Signature%20Noir%2C%20I%20want%20to%20know%20about%20your%20products."
+            class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span class="whatsapp-tooltip">💬 Chat with us</span>
+            <span class="whatsapp-badge">1</span>
+        </a>
+        
+        <script type="module" src="checkout.js"></script>
+        </body>
+        
+        </html>
+
+</body>
+
+</html>

@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ | HASSI Signature Noir</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        .faq-page {
+            padding: 80px 5%;
+            min-height: 70vh;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: #1a1a1a;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            overflow: hidden;
+            transition: 0.3s;
+        }
+
+        .faq-item:hover {
+            border-color: #d4af37;
+        }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 22px;
+            cursor: pointer;
+            transition: 0.3s;
+            user-select: none;
+        }
+
+        .faq-question:hover {
+            background: #0b0b0b;
+        }
+
+        .faq-question h3 {
+            font-size: 17px;
+            color: #fff;
+            font-weight: 500;
+            flex: 1;
+            margin-right: 15px;
+        }
+
+        .faq-question .icon {
+            font-size: 18px;
+            color: #d4af37;
+            transition: 0.3s;
+            flex-shrink: 0;
+        }
+
+        .faq-item.active .faq-question .icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+            padding: 0 22px;
+            color: #888;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding: 0 22px 20px 22px;
+        }
+
+        .faq-categories {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+
+        .faq-category-btn {
+            padding: 8px 22px;
+            background: #1a1a1a;
+            color: #888;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 14px;
+        }
+
+        .faq-category-btn:hover {
+            border-color: #d4af37;
+            color: #fff;
+        }
+
+        .faq-category-btn.active {
+            background: #d4af37;
+            color: #000;
+            border-color: #d4af37;
+        }
+
+        .faq-search {
+            width: 100%;
+            padding: 14px 20px;
+            background: #1a1a1a;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: #fff;
+            border-radius: 50px;
+            outline: none;
+            font-size: 15px;
+            margin-bottom: 30px;
+        }
+
+        .faq-search:focus {
+            border-color: #d4af37;
+        }
+
+        .faq-search::placeholder {
+            color: #666;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #888;
+        }
+
+        .no-results i {
+            font-size: 40px;
+            color: #d4af37;
+        }
+
+        .no-results h3 {
+            color: #fff;
+            margin: 15px 0 10px;
+        }
+
+        @media (max-width: 600px) {
+            .faq-question h3 {
+                font-size: 15px;
+            }
+
+            .faq-answer {
+                font-size: 14px;
+            }
+
+            .faq-category-btn {
+                font-size: 12px;
+                padding: 6px 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo">HASSI <span>Signature Noir</span></a>
+            <button class="menu-btn" id="menuBtn"><i class="fa-solid fa-bars"></i></button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#products">Shop</a></li>
+                <li><a href="orders.html">Orders</a></li>
+                <li><a href="tracking.html">Track Order</a></li>
+                <li><a href="wishlist.html">Wishlist</a></li>
+                <li><a href="faq.html" class="active">FAQ</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="admin.html">Admin</a></li>
+            </ul>
+            <div class="nav-icons">
+                <a href="login.html"><i class="fa-regular fa-user"></i></a>
+                <a href="#" id="cart-icon">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cart-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ===== FAQ ===== -->
+    <section class="faq-page">
+        <div class="faq-container">
+
+            <div class="section-heading">
+                <span>✦ FAQ ✦</span>
+                <h2>Frequently Asked Questions</h2>
+                <p>Find answers to common questions about our products and services</p>
+            </div>
+
+            <!-- Search -->
+            <input type="text" class="faq-search" id="faqSearch" placeholder="🔍 Search FAQ...">
+
+            <!-- Categories -->
+            <div class="faq-categories">
+                <button class="faq-category-btn active" data-category="all">📋 All</button>
+                <button class="faq-category-btn" data-category="orders">📦 Orders</button>
+                <button class="faq-category-btn" data-category="shipping">🚚 Shipping</button>
+                <button class="faq-category-btn" data-category="products">🧴 Products</button>
+                <button class="faq-category-btn" data-category="payment">💳 Payment</button>
+            </div>
+
+            <!-- FAQ List -->
+            <div id="faqList">
+                <!-- FAQs loaded by JavaScript -->
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-box">
+                <h3>HASSI</h3>
+                <p>Luxury perfumes crafted for elegance.</p>
+                <p style="margin-top:10px; color:#666; font-size:12px;">📞 03323365097 (Hassan ali)</p>
+            </div>
+            <div class="footer-box">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="index.html#products">Shop</a>
+                <a href="orders.html">Orders</a>
+                <a href="tracking.html">Track Order</a>
+                <a href="wishlist.html">Wishlist</a>
+                <a href="faq.html">FAQ</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-box">
+                <h3>Contact</h3>
+                <p>hassanali590110@gmail.com</p>
+                <p>+92 332 3365097</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 HASSI Signature Noir.</p>
+        </div>
+    </footer>
+
+    <!-- ===== CART SIDEBAR ===== -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h2>🛒 Cart</h2>
+            <button id="close-cart">✕</button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <p style="color:#888; text-align:center; padding:40px 0;">Your cart is empty.</p>
+        </div>
+        <div class="cart-footer">
+            <h3>Total: Rs. <span id="cart-total">0</span></h3>
+            <a href="checkout.html" class="checkout-btn"
+                style="display:block; text-align:center; text-decoration:none;">Proceed to Checkout</a>
+        </div>
+    </div>
+
+    <!-- ===== WHATSAPP FLOATING BUTTON ===== -->
+    <a href="https://wa.me/923323365097?text=Hello%20HASSI%20Signature%20Noir%2C%20I%20have%20a%20question."
+        class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+        <span class="whatsapp-tooltip">💬 Chat with us</span>
+        <span class="whatsapp-badge">1</span>
+    </a>
+
+    <!-- ===== FIREBASE ===== -->
+    <script type="module">
+        import { auth, db, collection, addDoc, getDocs } from './firebase.js';
+        console.log('✅ Firebase Connected!');
+    </script>
+
+    <!-- ===== MAIN SCRIPT ===== -->
+    <script>
+        // ====================================
+        // FAQ - COMPLETE
+        // ====================================
+
+        const faqs = [{
+            id: 1,
+            category: 'orders',
+            question: 'How do I place an order?',
+            answer: 'Simply browse our collection, select your desired product, choose the quantity, and click "Add to Cart". Then proceed to checkout, fill in your details, and confirm your order.'
+        }, {
+            id: 2,
+            category: 'orders',
+            question: 'Can I cancel my order?',
+            answer: 'Yes, you can cancel your order within 2 hours of placing it. Please contact our customer support team immediately for cancellation.'
+        }, {
+            id: 3,
+            category: 'shipping',
+            question: 'What are the shipping charges?',
+            answer: 'We offer free shipping on orders above Rs. 5,000. For orders below Rs. 5,000, a standard shipping fee of Rs. 250 applies.'
+        }, {
+            id: 4,
+            category: 'shipping',
+            question: 'How long does delivery take?',
+            answer: 'Delivery usually takes 2-5 business days depending on your location. You will receive a tracking number once your order is shipped.'
+        }, {
+            id: 5,
+            category: 'products',
+            question: 'Are your perfumes original?',
+            answer: 'Yes, all our perfumes are 100% original and authentic. We source directly from authorized distributors.'
+        }, {
+            id: 6,
+            category: 'products',
+            question: 'How long does the perfume last?',
+            answer: 'Our perfumes are long-lasting and can stay on your skin for 8-12 hours depending on your skin type and application.'
+        }, {
+            id: 7,
+            category: 'payment',
+            question: 'What payment methods do you accept?',
+            answer: 'We accept Cash on Delivery, EasyPaisa (0333-2944558), and Bank Transfer. All payments are secure.'
+        }, {
+            id: 8,
+            category: 'payment',
+            question: 'Is Cash on Delivery available?',
+            answer: 'Yes, Cash on Delivery is available for all orders. You can pay when you receive your order.'
+        }, {
+            id: 9,
+            category: 'orders',
+            question: 'How can I track my order?',
+            answer: 'You can track your order using the Order ID on our Track Order page. You will receive an Order ID after placing your order.'
+        }, {
+            id: 10,
+            category: 'shipping',
+            question: 'Do you ship outside Pakistan?',
+            answer: 'Currently, we only ship within Pakistan. We are working on expanding our shipping to other countries soon.'
+        }, {
+            id: 11,
+            category: 'products',
+            question: 'Do you offer gift wrapping?',
+            answer: 'Yes, we offer premium gift wrapping for all orders. Just mention it in the order notes during checkout.'
+        }, {
+            id: 12,
+            category: 'payment',
+            question: 'Is there any discount for bulk orders?',
+            answer: 'Yes, we offer special discounts for bulk orders. Contact our customer support team for details.'
+        }];
+
+        // ====================================
+        // RENDER FAQS
+        // ====================================
+        function renderFaqs(filteredFaqs) {
+            const container = document.getElementById('faqList');
+
+            if (filteredFaqs.length === 0) {
+                container.innerHTML = `
+                    <div class="no-results">
+                        <i class="fa-regular fa-circle-xmark"></i>
+                        <h3>No Results Found</h3>
+                        <p>Try adjusting your search or filter.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = '';
+            filteredFaqs.forEach((faq, index) => {
+                container.innerHTML += `
+                    <div class="faq-item" data-category="${faq.category}" data-id="${faq.id}">
+                        <div class="faq-question" onclick="toggleFaq(${index})">
+                            <h3>${faq.question}</h3>
+                            <span class="icon"><i class="fa-solid fa-chevron-down"></i></span>
+                        </div>
+                        <div class="faq-answer">
+                            ${faq.answer}
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // ====================================
+        // TOGGLE FAQ
+        // ====================================
+        function toggleFaq(index) {
+            const items = document.querySelectorAll('.faq-item');
+            const currentItem = items[index];
+
+            // Close all other FAQs
+            items.forEach((item, i) => {
+                if (i !== index) {
+                    item.classList.remove('active');
+                }
+            });
+
+            // Toggle current FAQ
+            currentItem.classList.toggle('active');
+        }
+
+        // ====================================
+        // SEARCH FAQS
+        // ====================================
+        function searchFaqs() {
+            const search = document.getElementById('faqSearch').value.toLowerCase().trim();
+            const activeCategory = document.querySelector('.faq-category-btn.active')?.dataset.category || 'all';
+
+            let filtered = faqs;
+
+            if (search) {
+                filtered = filtered.filter(f =>
+                    f.question.toLowerCase().includes(search) ||
+                    f.answer.toLowerCase().includes(search)
+                );
+            }
+
+            if (activeCategory !== 'all') {
+                filtered = filtered.filter(f => f.category === activeCategory);
+            }
+
+            renderFaqs(filtered);
+        }
+
+        // ====================================
+        // FILTER BY CATEGORY
+        // ====================================
+        function filterByCategory(category) {
+            document.querySelectorAll('.faq-category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`.faq-category-btn[data-category="${category}"]`).classList.add('active');
+
+            searchFaqs();
+        }
+
+        // ====================================
+        // EVENT LISTENERS
+        // ====================================
+        document.getElementById('faqSearch')?.addEventListener('input', searchFaqs);
+
+        document.querySelectorAll('.faq-category-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                filterByCategory(this.dataset.category);
+            });
+        });
+
+        // ====================================
+        // CART FUNCTIONS
+        // ====================================
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        function formatPrice(price) {
+            return Number(price).toLocaleString('en-PK');
+        }
+
+        function updateCartUI() {
+            const items = document.getElementById('cart-items');
+            const total = document.getElementById('cart-total');
+            const count = document.getElementById('cart-count');
+
+            if (!items) return;
+
+            let totalPrice = 0;
+            if (cart.length === 0) {
+                items.innerHTML = `<p style="color:#888; text-align:center; padding:40px 0;">Your cart is empty.</p>`;
+            } else {
+                items.innerHTML = '';
+                cart.forEach((item, index) => {
+                    totalPrice += item.price;
+                    items.innerHTML += `
+                        <div style="display:flex; align-items:center; gap:15px; padding:12px 0; border-bottom:1px solid #333;">
+                            <img src="${item.image || 'images/hawas-ice.jpg'}" style="width:60px; height:60px; object-fit:cover; border-radius:10px;">
+                            <div style="flex:1;">
+                                <h4 style="font-size:14px;">${item.name}</h4>
+                                <p style="color:#d4af37; font-weight:600;">Rs. ${formatPrice(item.price)}</p>
+                            </div>
+                            <button onclick="removeFromCart(${index})" style="background:transparent; border:none; color:#ff4444; font-size:18px; cursor:pointer;">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
+                        </div>
+                    `;
+                });
+            }
+            if (total) total.textContent = formatPrice(totalPrice);
+            if (count) count.textContent = cart.length;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartUI();
+        }
+
+        document.getElementById('cart-icon')?.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.getElementById('cart-sidebar')?.classList.add('active');
+        });
+
+        document.getElementById('close-cart')?.addEventListener('click', function () {
+            document.getElementById('cart-sidebar')?.classList.remove('active');
+        });
+
+        document.getElementById('menuBtn')?.addEventListener('click', function () {
+            document.getElementById('navMenu')?.classList.toggle('active');
+        });
+
+        // ====================================
+        // LOADER
+        // ====================================
+        window.addEventListener('load', function () {
+            const loader = document.getElementById('loader');
+            if (loader) setTimeout(() => loader.classList.add('hide'), 800);
+            renderFaqs(faqs);
+            updateCartUI();
+            console.log('✅ FAQ Page Loaded!');
+            console.log(`📋 ${faqs.length} FAQs loaded`);
+        });
+
+        // ====================================
+        // MAKE FUNCTIONS GLOBAL
+        // ====================================
+        window.toggleFaq = toggleFaq;
+        window.searchFaqs = searchFaqs;
+        window.filterByCategory = filterByCategory;
+        window.removeFromCart = removeFromCart;
+        window.updateCartUI = updateCartUI;
+
+        console.log('✅ FAQ Page Ready!');
+    </script>
+
+</body>
+
+</html>

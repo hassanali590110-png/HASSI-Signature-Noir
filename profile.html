@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile | HASSI Signature Noir</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        .profile-page {
+            padding: 100px 5% 60px;
+            min-height: 70vh;
+        }
+
+        .profile-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 30px;
+        }
+
+        .profile-sidebar {
+            background: #141414;
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            height: fit-content;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: #0b0b0b;
+            border: 3px solid #c9a84c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 50px;
+            color: #c9a84c;
+            overflow: hidden;
+        }
+
+        .profile-sidebar h3 {
+            color: #f5f0eb;
+            font-size: 20px;
+        }
+
+        .profile-sidebar .email {
+            color: #888;
+            font-size: 14px;
+            margin: 5px 0 15px;
+        }
+
+        .profile-sidebar .role-badge {
+            display: inline-block;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .profile-sidebar .role-badge.admin {
+            background: #c9a84c;
+            color: #0d0d0d;
+        }
+
+        .profile-sidebar .role-badge.user {
+            background: #333;
+            color: #f5f0eb;
+        }
+
+        .profile-sidebar .menu {
+            margin-top: 20px;
+            text-align: left;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 15px;
+        }
+
+        .profile-sidebar .menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 15px;
+            color: #888;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: 0.3s;
+            font-size: 14px;
+        }
+
+        .profile-sidebar .menu a:hover {
+            background: #0b0b0b;
+            color: #c9a84c;
+        }
+
+        .profile-sidebar .menu a.active {
+            background: #0b0b0b;
+            color: #c9a84c;
+        }
+
+        .profile-sidebar .menu a i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .profile-sidebar .menu .logout-btn {
+            color: #ff6b6b;
+            margin-top: 10px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            padding-top: 15px;
+            cursor: pointer;
+        }
+
+        .profile-sidebar .menu .logout-btn:hover {
+            background: #2a0a0a;
+            color: #ff6b6b;
+        }
+
+        .profile-content {
+            background: #141414;
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .profile-content .section-title {
+            color: #c9a84c;
+            font-size: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .profile-content .form-group {
+            margin-bottom: 18px;
+        }
+
+        .profile-content .form-group label {
+            color: #888;
+            font-size: 13px;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .profile-content .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            background: #0b0b0b;
+            border: 1px solid #333;
+            color: #f5f0eb;
+            border-radius: 10px;
+            outline: none;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        .profile-content .form-group input:focus {
+            border-color: #c9a84c;
+        }
+
+        .profile-content .form-group input:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .profile-content .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .profile-content .save-btn {
+            padding: 12px 35px;
+            background: #c9a84c;
+            color: #0d0d0d;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .profile-content .save-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(201, 168, 76, 0.3);
+        }
+
+        .profile-content .save-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .profile-content .save-message {
+            display: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-top: 15px;
+        }
+
+        .profile-content .save-message.success {
+            display: block;
+            background: #0a2a0a;
+            border: 1px solid #28a745;
+            color: #28a745;
+        }
+
+        .profile-content .save-message.error {
+            display: block;
+            background: #2a0a0a;
+            border: 1px solid #ff6b6b;
+            color: #ff6b6b;
+        }
+
+        .order-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 15px 0 20px;
+        }
+
+        .order-stat {
+            background: #0b0b0b;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .order-stat .num {
+            font-size: 28px;
+            font-weight: 700;
+            color: #c9a84c;
+        }
+
+        .order-stat .label {
+            color: #888;
+            font-size: 12px;
+            margin-top: 3px;
+        }
+
+        .order-stat .num.pending {
+            color: #ffc107;
+        }
+
+        .order-stat .num.delivered {
+            color: #28a745;
+        }
+
+        /* ===== NOT LOGGED IN ===== */
+        .not-logged-in {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            background: #141414;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .not-logged-in i {
+            font-size: 60px;
+            color: #c9a84c;
+        }
+
+        .not-logged-in h3 {
+            color: #f5f0eb;
+            margin: 15px 0 10px;
+            font-size: 24px;
+        }
+
+        .not-logged-in p {
+            color: #888;
+            margin-bottom: 20px;
+        }
+
+        .not-logged-in .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .not-logged-in .btn-group a {
+            display: inline-block;
+            padding: 12px 35px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        .not-logged-in .btn-group .btn-login {
+            background: #c9a84c;
+            color: #0d0d0d;
+        }
+
+        .not-logged-in .btn-group .btn-login:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(201, 168, 76, 0.3);
+        }
+
+        .not-logged-in .btn-group .btn-signup {
+            background: #333;
+            color: #f5f0eb;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .not-logged-in .btn-group .btn-signup:hover {
+            background: #444;
+            transform: scale(1.05);
+        }
+
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 380px;
+            height: 100vh;
+            background: #141414;
+            padding: 25px;
+            transition: 0.4s;
+            z-index: 9999;
+            overflow-y: auto;
+            border-left: 2px solid rgba(201, 168, 76, 0.3);
+        }
+
+        .cart-sidebar.active {
+            right: 0;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .cart-header h2 {
+            color: #c9a84c;
+        }
+
+        .cart-header button {
+            background: transparent;
+            border: none;
+            color: #f5f0eb;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .cart-items {
+            padding: 20px 0;
+            min-height: 200px;
+        }
+
+        .cart-footer {
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .cart-footer h3 {
+            color: #c9a84c;
+            margin-bottom: 15px;
+        }
+
+        .checkout-btn {
+            display: block;
+            background: #c9a84c;
+            color: #0d0d0d;
+            text-align: center;
+            padding: 12px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        @media (max-width: 768px) {
+            .profile-container {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-sidebar {
+                order: 2;
+            }
+
+            .profile-content {
+                order: 1;
+            }
+
+            .profile-content .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .order-stats {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .profile-page {
+                padding: 80px 3% 40px;
+            }
+
+            .profile-sidebar,
+            .profile-content {
+                padding: 20px;
+            }
+
+            .order-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .not-logged-in .btn-group {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo">HASSI <span>Signature Noir</span></a>
+            <button class="menu-btn" id="menuBtn"><i class="fa-solid fa-bars"></i></button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#products">Shop</a></li>
+                <li><a href="orders.html">My Orders</a></li>
+                <li><a href="profile.html" class="active">Profile</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-icons">
+                <a href="#" id="user-icon">
+                    <i class="fa-regular fa-user"></i>
+                </a>
+                <a href="#" id="cart-icon">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cart-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="profile-page">
+        <div class="section-heading">
+            <span>✦ My Account ✦</span>
+            <h2>Profile</h2>
+        </div>
+
+        <div class="profile-container" id="profileContainer">
+            <!-- Loaded by JavaScript -->
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-box">
+                <h3>HASSI</h3>
+                <p>Luxury perfumes crafted for elegance.</p>
+            </div>
+            <div class="footer-box">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="index.html#products">Shop</a>
+                <a href="orders.html">Orders</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-box">
+                <h3>Contact</h3>
+                <p>hassanali590110@gmail.com</p>
+                <p>+92 332 3365097</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 HASSI Signature Noir. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h2>🛒 Your Cart</h2>
+            <button id="close-cart">✕</button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <p style="color:#888; text-align:center; padding:40px 0;">Your cart is empty.</p>
+        </div>
+        <div class="cart-footer">
+            <h3>Total: Rs. <span id="cart-total">0</span></h3>
+            <a href="checkout.html" class="checkout-btn">Proceed to Checkout</a>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- JAVASCRIPT -->
+    <!-- ============================================================ -->
+    <script type="module">
+        import { auth, signOut, onAuthStateChanged } from "./firebase.js";
+
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        function formatPrice(price) {
+            return Number(price).toLocaleString('en-PK');
+        }
+
+        function getUser() {
+            return JSON.parse(localStorage.getItem('currentUser'));
+        }
+
+        // ====================================
+        // CHECK USER STATE (Navbar)
+        // ====================================
+        function checkUserState() {
+            const user = getUser();
+            const userIcon = document.getElementById('user-icon');
+
+            if (!userIcon) return;
+
+            if (user) {
+                userIcon.href = 'profile.html';
+                userIcon.title = 'My Profile';
+            } else {
+                userIcon.href = 'login.html';
+                userIcon.title = 'Login / Signup';
+            }
+        }
+
+        // ====================================
+        // LOAD PROFILE - 🔥 WITH LOGIN CHECK
+        // ====================================
+        function loadProfile() {
+            const container = document.getElementById('profileContainer');
+            const user = getUser();
+
+            // 👇 AGAR USER LOGIN NAHI HAI TOH LOGIN/SIGNUP OPTIONS DIKHAO
+            if (!user) {
+                container.innerHTML = `
+                    <div class="not-logged-in">
+                        <i class="fa-regular fa-user"></i>
+                        <h3>🔑 Welcome Back!</h3>
+                        <p>Please login to view and manage your profile.</p>
+                        <div class="btn-group">
+                           <!-- ✅ SAHI -->
+                       <a href="login.html" class="btn-login">🔐 Login</a>
+                       <a href="register.html" class="btn-signup">✨ Sign Up</a>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            // 👇 USER LOGIN HAI TOH PROFILE DIKHAO
+            const isAdmin = user.email === 'hassanali590110@gmail.com';
+            const orders = JSON.parse(localStorage.getItem('orders')) || [];
+            const userOrders = orders.filter(o => o.billing?.email === user.email);
+            const pendingOrders = userOrders.filter(o => o.status === 'processing' || o.status === 'shipped');
+            const deliveredOrders = userOrders.filter(o => o.status === 'delivered');
+
+            container.innerHTML = `
+                <div class="profile-sidebar">
+                    <div class="profile-avatar">
+                        <i class="fa-regular fa-user"></i>
+                    </div>
+                    <h3>${user.name || 'User'}</h3>
+                    <p class="email">${user.email}</p>
+                    <span class="role-badge ${isAdmin ? 'admin' : 'user'}">
+                        ${isAdmin ? '👑 Admin' : '👤 User'}
+                    </span>
+                    <div class="menu">
+                        <a href="#" class="active" onclick="loadProfile()">
+                            <i class="fa-regular fa-user"></i> My Profile
+                        </a>
+                        <a href="orders.html">
+                            <i class="fa-regular fa-receipt"></i> My Orders
+                        </a>
+                        <a href="checkout.html">
+                            <i class="fa-regular fa-cart-shopping"></i> Checkout
+                        </a>
+                        ${isAdmin ? `
+                            <a href="admin.html">
+                                <i class="fa-regular fa-gauge-high"></i> Admin Dashboard
+                            </a>
+                        ` : ''}
+                        <div class="logout-btn" onclick="logoutUser()">
+                            <i class="fa-regular fa-right-from-bracket"></i> Logout
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-content">
+                    <div class="section-title">
+                        <i class="fa-regular fa-user-pen"></i> Personal Information
+                    </div>
+                    <form id="profileForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                <input type="text" id="profileName" value="${user.name || ''}" placeholder="Your name">
+                            </div>
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" id="profileEmail" value="${user.email}" disabled>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input type="tel" id="profilePhone" value="${user.phone || ''}" placeholder="Phone number">
+                            </div>
+                            <div class="form-group">
+                                <label>Role</label>
+                                <input type="text" value="${isAdmin ? 'Administrator' : 'Customer'}" disabled>
+                            </div>
+                        </div>
+                        <button type="submit" class="save-btn" id="saveProfileBtn">
+                            <i class="fa-regular fa-floppy-disk"></i> Save Changes
+                        </button>
+                    </form>
+                    <div id="saveMessage" class="save-message"></div>
+                    <div style="margin-top:30px;">
+                        <div class="section-title" style="font-size:16px; margin-bottom:15px;">
+                            <i class="fa-regular fa-chart-simple"></i> Order Summary
+                        </div>
+                        <div class="order-stats">
+                            <div class="order-stat">
+                                <div class="num">${userOrders.length}</div>
+                                <div class="label">Total Orders</div>
+                            </div>
+                            <div class="order-stat">
+                                <div class="num pending">${pendingOrders.length}</div>
+                                <div class="label">Pending</div>
+                            </div>
+                            <div class="order-stat">
+                                <div class="num delivered">${deliveredOrders.length}</div>
+                                <div class="label">Delivered</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('profileForm')?.addEventListener('submit', function (e) {
+                e.preventDefault();
+                saveProfile();
+            });
+        }
+
+        // ====================================
+        // SAVE PROFILE
+        // ====================================
+        function saveProfile() {
+            const name = document.getElementById('profileName').value.trim();
+            const phone = document.getElementById('profilePhone').value.trim();
+            const messageDiv = document.getElementById('saveMessage');
+            const saveBtn = document.getElementById('saveProfileBtn');
+
+            saveBtn.disabled = true;
+            saveBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+
+            const user = getUser();
+            if (!user) {
+                messageDiv.className = 'save-message error';
+                messageDiv.textContent = '❌ User not found. Please login again.';
+                saveBtn.disabled = false;
+                saveBtn.innerHTML = '<i class="fa-regular fa-floppy-disk"></i> Save Changes';
+                return;
+            }
+
+            user.name = name || user.name;
+            user.phone = phone || user.phone;
+            localStorage.setItem('currentUser', JSON.stringify(user));
+
+            setTimeout(() => {
+                messageDiv.className = 'save-message success';
+                messageDiv.textContent = '✅ Profile updated successfully!';
+                saveBtn.disabled = false;
+                saveBtn.innerHTML = '<i class="fa-regular fa-floppy-disk"></i> Save Changes';
+                setTimeout(() => {
+                    loadProfile();
+                }, 1000);
+            }, 800);
+        }
+
+        // ====================================
+        // LOGOUT
+        // ====================================
+        window.logoutUser = async function () {
+            if (!confirm('Are you sure you want to logout?')) return;
+
+            try {
+                await signOut(auth);
+                localStorage.removeItem('currentUser');
+                alert('✅ Logged out successfully!');
+                window.location.href = 'index.html';
+            } catch (error) {
+                console.error('❌ Logout error:', error);
+                alert('❌ Error logging out. Please try again.');
+            }
+        };
+
+        // ====================================
+        // UPDATE CART UI
+        // ====================================
+        function updateCartUI() {
+            const items = document.getElementById('cart-items');
+            const total = document.getElementById('cart-total');
+            const count = document.getElementById('cart-count');
+
+            if (!items) return;
+
+            let totalPrice = 0;
+            if (cart.length === 0) {
+                items.innerHTML = `<p style="color:#888; text-align:center; padding:40px 0;">Your cart is empty.</p>`;
+            } else {
+                items.innerHTML = '';
+                cart.forEach((item, index) => {
+                    const price = Number(item.price) || 0;
+                    totalPrice += price * (item.quantity || 1);
+                    items.innerHTML += `
+                        <div style="display:flex; align-items:center; gap:15px; padding:12px 0; border-bottom:1px solid rgba(255,255,255,0.06);">
+                            <img src="${item.image || 'https://via.placeholder.com/60'}" style="width:60px; height:60px; object-fit:cover; border-radius:10px;">
+                            <div style="flex:1;">
+                                <h4 style="font-size:14px; color:#f5f0eb;">${item.name}</h4>
+                                <p style="color:#c9a84c; font-weight:600;">Rs. ${formatPrice(price)}</p>
+                            </div>
+                            <button onclick="window.removeFromCart(${index})" style="background:transparent; border:none; color:#ff6b6b; font-size:18px; cursor:pointer;">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
+                        </div>
+                    `;
+                });
+            }
+            if (total) total.textContent = formatPrice(totalPrice);
+            if (count) count.textContent = cart.length;
+        }
+
+        window.removeFromCart = function (index) {
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartUI();
+        };
+
+        // ====================================
+        // CART TOGGLE
+        // ====================================
+        document.getElementById('cart-icon')?.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.getElementById('cart-sidebar')?.classList.add('active');
+        });
+
+        document.getElementById('close-cart')?.addEventListener('click', function () {
+            document.getElementById('cart-sidebar')?.classList.remove('active');
+        });
+
+        document.getElementById('menuBtn')?.addEventListener('click', function () {
+            document.getElementById('navMenu')?.classList.toggle('active');
+        });
+
+        // ====================================
+        // AUTH STATE CHANGE
+        // ====================================
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                localStorage.setItem('currentUser', JSON.stringify({
+                    uid: user.uid,
+                    email: user.email,
+                    name: user.displayName || user.email.split('@')[0],
+                    phone: user.phoneNumber || ''
+                }));
+            }
+            checkUserState();
+        });
+
+        // ====================================
+        // PAGE LOAD
+        // ====================================
+        window.addEventListener('load', function () {
+            loadProfile();
+            updateCartUI();
+            checkUserState();
+            console.log('✅ Profile Page Loaded!');
+        });
+
+        window.loadProfile = loadProfile;
+        window.logoutUser = logoutUser;
+    </script>
+        <!-- ===== WHATSAPP FLOATING BUTTON ===== -->
+        <a href="https://wa.me/923323365097?text=Hello%20HASSI%20Signature%20Noir%2C%20I%20want%20to%20know%20about%20your%20products."
+            class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span class="whatsapp-tooltip">💬 Chat with us</span>
+            <span class="whatsapp-badge">1</span>
+        </a>
+        
+        <script type="module" src="profile.js"></script>
+        </body>
+        
+        </html>
+
+</body>
+
+</html>

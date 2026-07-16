@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | HASSI Signature Noir</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        .auth-page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #0b0b0b;
+            padding: 20px;
+        }
+
+        .auth-box {
+            background: #1a1a1a;
+            padding: 40px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid #333;
+        }
+
+        .auth-box .logo {
+            text-align: center;
+            font-size: 28px;
+            color: #d4af37;
+            font-weight: 700;
+        }
+
+        .auth-box .logo span {
+            display: block;
+            color: #888;
+            font-size: 13px;
+        }
+
+        .auth-box h2 {
+            color: #fff;
+            text-align: center;
+            margin: 20px 0 8px;
+        }
+
+        .auth-box p {
+            color: #888;
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .auth-box input {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 15px;
+            background: #0b0b0b;
+            border: 1px solid #333;
+            color: #fff;
+            border-radius: 10px;
+            outline: none;
+        }
+
+        .auth-box input:focus {
+            border-color: #d4af37;
+        }
+
+        .auth-box button {
+            width: 100%;
+            padding: 14px;
+            background: #d4af37;
+            color: #000;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .auth-box button:hover {
+            opacity: 0.8;
+        }
+
+        .auth-box .link {
+            text-align: center;
+            margin-top: 15px;
+            color: #888;
+        }
+
+        .auth-box .link a {
+            color: #d4af37;
+            text-decoration: none;
+        }
+
+        .error-msg {
+            color: #ff4444;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .error-msg.show {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="auth-page">
+        <div class="auth-box">
+            <div class="logo">HASSI <span>Signature Noir</span></div>
+            <h2>Create Account</h2>
+            <p>Join the HASSI family</p>
+            <div id="signupError" class="error-msg"></div>
+            <form id="signupForm">
+                <input type="text" id="signupName" placeholder="Full Name" required>
+                <input type="email" id="signupEmail" placeholder="Email Address" required>
+                <input type="password" id="signupPassword" placeholder="Password (min 6 chars)" required>
+                <button type="submit" id="signupBtn">📝 Create Account</button>
+            </form>
+            <div class="link">Already have an account? <a href="login.html">Login</a></div>
+            <div class="link"><a href="index.html">← Back to Home</a></div>
+        </div>
+    </div>
+
+    <script type="module">
+        // ====================================
+        // SIGNUP - FIREBASE AUTH
+        // ====================================
+
+        import { auth, createUserWithEmailAndPassword } from './firebase.js';
+
+        const signupForm = document.getElementById('signupForm');
+        const signupBtn = document.getElementById('signupBtn');
+        const signupError = document.getElementById('signupError');
+
+        console.log('✅ Firebase Auth Imported!');
+
+        signupForm.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById('signupName').value.trim();
+            const email = document.getElementById('signupEmail').value.trim();
+            const password = document.getElementById('signupPassword').value.trim();
+
+            signupError.classList.remove('show');
+            signupError.textContent = '';
+
+            // Validation
+            if (!name || !email || !password) {
+                signupError.textContent = '❌ Please fill all fields';
+                signupError.classList.add('show');
+                return;
+            }
+
+            if (name.length < 2) {
+                signupError.textContent = '❌ Name must be at least 2 characters';
+                signupError.classList.add('show');
+                return;
+            }
+
+            if (!email.includes('@')) {
+                signupError.textContent = '❌ Please enter a valid email';
+                signupError.classList.add('show');
+                return;
+            }
+
+            if (password.length < 6) {
+                signupError.textContent = '❌ Password must be at least 6 characters';
+                signupError.classList.add('show');
+                return;
+            }
+
+            // Show loading
+            signupBtn.disabled = true;
+            signupBtn.textContent = '⏳ Creating account...';
+
+            try {
+                // Create user with Firebase Auth
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
+                console.log('✅ Account created:', user.email);
+                console.log('🔥 User UID:', user.uid);
+
+                // Save to localStorage
+                localStorage.setItem('currentUser', JSON.stringify({
+                    uid: user.uid,
+                    email: user.email,
+                    name: name
+                }));
+
+                alert('✅ Account Created Successfully! Welcome ' + name + '!');
+                window.location.href = 'index.html';
+
+            } catch (error) {
+                console.error('❌ Signup Error:', error.code, error.message);
+
+                let msg = '❌ ';
+                switch (error.code) {
+                    case 'auth/email-already-in-use':
+                        msg += 'This email is already registered. Please login instead.';
+                        break;
+                    case 'auth/invalid-email':
+                        msg += 'Invalid email address format.';
+                        break;
+                    case 'auth/operation-not-allowed':
+                        msg += 'Email/password accounts are not enabled. Please enable it in Firebase Console → Authentication → Sign-in methods.';
+                        break;
+                    case 'auth/weak-password':
+                        msg += 'Password is too weak. Use at least 6 characters with uppercase, lowercase and numbers.';
+                        break;
+                    case 'auth/network-request-failed':
+                        msg += 'Network error. Please check your internet connection.';
+                        break;
+                    default:
+                        msg += error.message;
+                }
+
+                signupError.textContent = msg;
+                signupError.classList.add('show');
+
+            } finally {
+                signupBtn.disabled = false;
+                signupBtn.textContent = '📝 Create Account';
+            }
+        });
+
+        console.log('✅ Signup Page with Firebase Auth Loaded!');
+        console.log('🔥 Firebase Auth:', auth);
+    </script>
+        <!-- ===== WHATSAPP FLOATING BUTTON ===== -->
+        <a href="https://wa.me/923323365097?text=Hello%20HASSI%20Signature%20Noir%2C%20I%20want%20to%20know%20about%20your%20products."
+            class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+            <i class="fa-brands fa-whatsapp"></i>
+            <span class="whatsapp-tooltip">💬 Chat with us</span>
+            <span class="whatsapp-badge">1</span>
+        </a>
+        
+        <script type="module" src="signup.js"></script>
+        </body>
+        
+        </html>
+
+</body>
+
+</html>

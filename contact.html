@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | HASSI Signature Noir</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        .contact-page {
+            padding: 80px 5%;
+            min-height: 70vh;
+        }
+
+        .contact-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .contact-info {
+            background: #1a1a1a;
+            padding: 35px;
+            border-radius: 16px;
+        }
+
+        .contact-info h2 {
+            color: #d4af37;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .contact-info .desc {
+            color: #888;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .contact-info .item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .contact-info .item:last-child {
+            border-bottom: none;
+        }
+
+        .contact-info .item i {
+            width: 40px;
+            height: 40px;
+            background: #d4af37;
+            color: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .contact-info .item h4 {
+            color: #fff;
+            font-size: 15px;
+        }
+
+        .contact-info .item p {
+            color: #888;
+            font-size: 14px;
+        }
+
+        .contact-form {
+            background: #1a1a1a;
+            padding: 35px;
+            border-radius: 16px;
+        }
+
+        .contact-form h2 {
+            color: #d4af37;
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .contact-form .sub {
+            color: #888;
+            margin-bottom: 25px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 15px;
+            background: #0b0b0b;
+            border: 1px solid #333;
+            color: #fff;
+            border-radius: 10px;
+            outline: none;
+            font-size: 15px;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: #d4af37;
+        }
+
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-form button {
+            width: 100%;
+            padding: 14px;
+            background: #d4af37;
+            color: #000;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .contact-form button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .success-msg {
+            display: none;
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #28a745;
+        }
+
+        .success-msg.show {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-page {
+                padding: 100px 5% 60px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .contact-info {
+                padding: 20px;
+            }
+
+            .contact-form {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo">HASSI <span>Signature Noir</span></a>
+            <button class="menu-btn" id="menuBtn"><i class="fa-solid fa-bars"></i></button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#products">Shop</a></li>
+                <li><a href="orders.html">Orders</a></li>
+                <li><a href="tracking.html">Track Order</a></li>
+                <li><a href="wishlist.html">Wishlist</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+                <li><a href="admin.html">Admin</a></li>
+                <li><a href="profile.html">Profile</a></li>
+            </ul>
+            <div class="nav-icons">
+                <a href="login.html"><i class="fa-regular fa-user"></i></a>
+                <a href="#" id="cart-icon">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cart-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ===== CONTACT ===== -->
+    <section class="contact-page">
+        <div class="section-heading">
+            <span>✦ Get In Touch ✦</span>
+            <h2>Contact Us</h2>
+        </div>
+
+        <div class="contact-container">
+            <!-- Contact Info -->
+            <div class="contact-info">
+                <h2>Let's Connect</h2>
+                <p class="desc">Have questions about our perfumes, orders, or partnerships? We're here to help.</p>
+
+                <div class="item">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <div>
+                        <h4>Visit Us</h4>
+                        <p>Karachi, Pakistan</p>
+                    </div>
+                </div>
+                <div class="item">
+                    <i class="fa-solid fa-phone"></i>
+                    <div>
+                        <h4>Call Us</h4>
+                        <p>+92 332 3365097</p>
+                    </div>
+                </div>
+                <div class="item">
+                    <i class="fa-regular fa-envelope"></i>
+                    <div>
+                        <h4>Email Us</h4>
+                        <p>hassanali590110@gmail.com</p>
+                    </div>
+                </div>
+                <div class="item">
+                    <i class="fa-regular fa-clock"></i>
+                    <div>
+                        <h4>Working Hours</h4>
+                        <p>Mon-Sat: 9:00 AM - 9:00 PM</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="contact-form">
+                <h2>Send a Message</h2>
+                <p class="sub">We'll get back to you within 24 hours.</p>
+
+                <div class="success-msg" id="successMsg">
+                    ✅ Your message has been sent successfully!
+                </div>
+
+                <form id="contactForm">
+                    <input type="text" id="contactName" placeholder="Full Name" required>
+                    <input type="email" id="contactEmail" placeholder="Email Address" required>
+                    <input type="text" id="contactSubject" placeholder="Subject">
+                    <textarea id="contactMessage" placeholder="Your message..." required></textarea>
+                    <button type="submit">📤 Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-box">
+                <h3>HASSI</h3>
+                <p>Luxury perfumes crafted for elegance.</p>
+                <p style="margin-top:10px; color:#666; font-size:12px;">📞 0333-2944558 (Marvikamran)</p>
+            </div>
+            <div class="footer-box">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="index.html#products">Shop</a>
+                <a href="orders.html">Orders</a>
+                <a href="tracking.html">Track</a>
+                <a href="wishlist.html">Wishlist</a>
+                <a href="contact.html">Contact</a>
+                <a href="admin.html">Admin</a>
+            </div>
+            <div class="footer-box">
+                <h3>Contact</h3>
+                <p>hassanali590110@gmail.com</p>
+                <p>+92 332 3365097</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 HASSI Signature Noir.</p>
+        </div>
+    </footer>
+
+    <!-- ===== CART SIDEBAR ===== -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h2>🛒 Cart</h2>
+            <button id="close-cart">✕</button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <p style="color:#888; text-align:center; padding:40px 0;">Your cart is empty.</p>
+        </div>
+        <div class="cart-footer">
+            <h3>Total: Rs. <span id="cart-total">0</span></h3>
+            <a href="checkout.html" class="checkout-btn"
+                style="display:block; text-align:center; text-decoration:none;">Proceed to Checkout</a>
+        </div>
+    </div>
+
+    <!-- ===== WHATSAPP BUTTON ===== -->
+    <a href="https://wa.me/923323365097?text=Hello%20HASSI%20Signature%20Noir" class="whatsapp-float" target="_blank"
+        aria-label="Chat on WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+        <span class="whatsapp-tooltip">💬 Chat with us</span>
+        <span class="whatsapp-badge">1</span>
+    </a>
+
+    <!-- ===== FIREBASE ===== -->
+    <script type="module">
+        import { auth, db, collection, addDoc, getDocs } from './firebase.js';
+        console.log('✅ Firebase Connected!');
+    </script>
+
+    <!-- ===== MAIN SCRIPT ===== -->
+    <script>
+        // ====================================
+        // CONTACT FORM
+        // ====================================
+        document.getElementById('contactForm')?.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById('contactName').value.trim();
+            const email = document.getElementById('contactEmail').value.trim();
+            const subject = document.getElementById('contactSubject').value.trim();
+            const message = document.getElementById('contactMessage').value.trim();
+
+            if (!name || !email || !message) {
+                alert('❌ Please fill all required fields!');
+                return;
+            }
+
+            // Save to localStorage
+            const contacts = JSON.parse(localStorage.getItem('contacts')) || [];
+            contacts.push({
+                name: name,
+                email: email,
+                subject: subject || 'General',
+                message: message,
+                date: new Date().toLocaleDateString(),
+                time: new Date().toLocaleTimeString()
+            });
+            localStorage.setItem('contacts', JSON.stringify(contacts));
+
+            // Show success
+            document.getElementById('successMsg').classList.add('show');
+            this.reset();
+
+            setTimeout(() => {
+                document.getElementById('successMsg').classList.remove('show');
+            }, 5000);
+
+            console.log('✅ Contact message saved!');
+        });
+
+        // ====================================
+        // CART FUNCTIONS
+        // ====================================
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        function formatPrice(price) {
+            return Number(price).toLocaleString('en-PK');
+        }
+
+        function updateCartUI() {
+            const items = document.getElementById('cart-items');
+            const total = document.getElementById('cart-total');
+            const count = document.getElementById('cart-count');
+
+            if (!items) return;
+
+            let totalPrice = 0;
+            if (cart.length === 0) {
+                items.innerHTML = `<p style="color:#888; text-align:center; padding:40px 0;">Your cart is empty.</p>`;
+            } else {
+                items.innerHTML = '';
+                cart.forEach((item, index) => {
+                    totalPrice += item.price;
+                    items.innerHTML += `
+                        <div style="display:flex; align-items:center; gap:15px; padding:12px 0; border-bottom:1px solid #333;">
+                            <img src="${item.image || 'images/hawas-ice.jpg'}" style="width:60px; height:60px; object-fit:cover; border-radius:10px;" onerror="this.src='images/hawas-ice.jpg'">
+                            <div style="flex:1;">
+                                <h4 style="font-size:14px;">${item.name}</h4>
+                                <p style="color:#d4af37; font-weight:600;">Rs. ${formatPrice(item.price)}</p>
+                            </div>
+                            <button onclick="removeFromCart(${index})" style="background:transparent; border:none; color:#ff4444; font-size:18px; cursor:pointer;">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
+                        </div>
+                    `;
+                });
+            }
+            if (total) total.textContent = formatPrice(totalPrice);
+            if (count) count.textContent = cart.length;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartUI();
+        }
+
+        document.getElementById('cart-icon')?.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.getElementById('cart-sidebar')?.classList.add('active');
+        });
+
+        document.getElementById('close-cart')?.addEventListener('click', function () {
+            document.getElementById('cart-sidebar')?.classList.remove('active');
+        });
+
+        document.getElementById('menuBtn')?.addEventListener('click', function () {
+            document.getElementById('navMenu')?.classList.toggle('active');
+        });
+
+        window.addEventListener('load', function () {
+            const loader = document.getElementById('loader');
+            if (loader) setTimeout(() => loader.classList.add('hide'), 800);
+            updateCartUI();
+            console.log('✅ Contact Page Loaded!');
+        });
+    </script>
+
+</body>
+
+</html>

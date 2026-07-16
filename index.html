@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HASSI Signature Noir</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+    <!-- ===== LOADER ===== -->
+    <div class="loader" id="loader">
+        <div class="loader-text">HASSI</div>
+    </div>
+
+    <!-- ===== HEADER ===== -->
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo">HASSI <span>Signature Noir</span></a>
+            <button class="menu-btn" id="menuBtn"><i class="fa-solid fa-bars"></i></button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="#products">Shop</a></li>
+                <li><a href="#categories">Men</a></li>
+                <li><a href="#categories">Women</a></li>
+                <li><a href="orders.html">Orders</a></li>
+                <li><a href="tracking.html">Track</a></li>
+                <li><a href="wishlist.html">Wishlist</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="admin.html">Admin</a></li>
+                <li><a href="profile.html">Profile</a></li>
+            </ul>
+            <div class="nav-icons">
+                <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle">
+                    <i class="fa-regular fa-moon"></i>
+                </button>
+                <a href="login.html"><i class="fa-regular fa-user"></i></a>
+                <a href="#" id="cart-icon">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cart-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Discover <br><span>Timeless Elegance</span></h1>
+            <p>Experience premium perfumes crafted with passion. Long-lasting fragrances designed for confidence and
+                elegance.</p>
+            <a href="#products" class="btn-primary">Shop Now</a>
+        </div>
+        <div class="hero-image">
+            <img src="images/hawas-ice.jpg" alt="Perfume"
+                onerror="this.src='https://via.placeholder.com/400/1a1a1a/d4af37?text=HASSI'">
+        </div>
+    </section>
+
+    <!-- ===== SEARCH ===== -->
+    <section class="search-section">
+        <div class="search-box">
+            <input type="text" id="search-input" placeholder="Search Perfumes...">
+        </div>
+    </section>
+
+    <!-- ===== PRODUCTS ===== -->
+    <section class="featured" id="products">
+        <div class="section-heading">
+            <span>✦ Premium Collection ✦</span>
+            <h2>Featured Perfumes</h2>
+        </div>
+        <div class="products" id="products-container"></div>
+    </section>
+
+    <!-- ===== CATEGORIES ===== -->
+    <section class="categories" id="categories">
+        <div class="section-heading">
+            <span>Shop By Category</span>
+            <h2>Our Collections</h2>
+        </div>
+        <div class="category-box">
+            <div class="category-card" onclick="filterProducts('Men')">
+                <h3>👔 Men's</h3>
+            </div>
+            <div class="category-card" onclick="filterProducts('Women')">
+                <h3>👗 Women's</h3>
+            </div>
+            <div class="category-card" onclick="filterProducts('Unisex')">
+                <h3>🌟 Unisex</h3>
+            </div>
+            <div class="category-card" onclick="filterProducts('Luxury')">
+                <h3>👑 Luxury</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-box">
+                <h3>HASSI</h3>
+                <p>Luxury perfumes crafted for elegance.</p>
+                <p style="margin-top:10px; color:#666; font-size:12px;">📞 03323365097 (hassan ali)</p>
+                <div class="social-links" style="display:flex; gap:10px; margin-top:10px;">
+                    <a href="#" style="color:#888; transition:0.3s;"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://www.tiktok.com/@hassisignaturenoir" target="_blank"
+                        style="color:#888; transition:0.3s;"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#" style="color:#888; transition:0.3s;"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" style="color:#888; transition:0.3s;"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" style="color:#888; transition:0.3s;"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-box">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="#products">Shop</a>
+                <a href="orders.html">Orders</a>
+                <a href="tracking.html">Track</a>
+                <a href="wishlist.html">Wishlist</a>
+                <a href="faq.html">FAQ</a>
+                <a href="contact.html">Contact</a>
+                <a href="admin.html">Admin</a>
+            </div>
+            <div class="footer-box">
+                <h3>Contact</h3>
+                <p>hassanali590110@gmail.com</p>
+                <p>+92 332 3365097</p>
+                <p style="margin-top:5px; color:#666; font-size:12px;">💳 EasyPaisa: 0333-2944558</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 HASSI Signature Noir.</p>
+        </div>
+    </footer>
+
+    <!-- ===== CART SIDEBAR ===== -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h2>🛒 Cart</h2>
+            <button id="close-cart">✕</button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <p style="color:#888; text-align:center; padding:40px 0;">Your cart is empty.</p>
+        </div>
+        <div class="cart-footer">
+            <h3>Total: Rs. <span id="cart-total">0</span></h3>
+            <a href="checkout.html" class="checkout-btn"
+                style="display:block; text-align:center; text-decoration:none;">Proceed to Checkout</a>
+        </div>
+    </div>
+
+    <!-- ===== LIVE CHAT BUTTON ===== -->
+    <button class="live-chat-btn" onclick="openChat()">
+        <i class="fa-regular fa-comment-dots"></i>
+        <span>Chat</span>
+    </button>
+
+    <!-- ===== LIVE CHAT MODAL ===== -->
+    <div class="chat-modal" id="chatModal">
+        <div class="chat-header">
+            <div>
+                <i class="fa-regular fa-comment-dots" style="color:#d4af37; font-size:18px;"></i>
+                <span style="font-weight:600; margin-left:10px; color:#fff;">Live Chat Support</span>
+            </div>
+            <button onclick="closeChat()"
+                style="background:transparent; border:none; color:#fff; font-size:24px; cursor:pointer;">✕</button>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <div class="chat-message bot">
+                <div class="chat-avatar">🤖</div>
+                <div class="chat-bubble">Hello! 👋 Welcome to HASSI Signature Noir. How can we help you today?</div>
+            </div>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="chatInput" placeholder="Type your message..."
+                onkeypress="if(event.key==='Enter') sendMessage()">
+            <button onclick="sendMessage()"><i class="fa-regular fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- ===== WHATSAPP FLOATING BUTTON ===== -->
+    <a href="https://wa.me/923323365097?text=Hello%20HASSI%20Signature%20Noir%2C%20I%20want%20to%20know%20about%20your%20products."
+        class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+        <span class="whatsapp-tooltip">💬 Chat with us</span>
+        <span class="whatsapp-badge">1</span>
+    </a>
+
+    <!-- ===== FIREBASE ===== -->
+    <script type="module">
+        import { auth, db, collection, addDoc, getDocs } from './firebase.js';
+        console.log('✅ Firebase Connected!');
+    </script>
+
+    <!-- ===== MAIN SCRIPT ===== -->
+    <script src="script.js"></script>
+
+</body>
+
+</html>
