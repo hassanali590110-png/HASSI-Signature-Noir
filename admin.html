@@ -23,6 +23,7 @@
             margin: 0 auto;
         }
 
+        /* Cards */
         .admin-card {
             background: #141414;
             padding: 25px;
@@ -41,6 +42,7 @@
             margin-right: 10px;
         }
 
+        /* Stats */
         .admin-stats {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -231,6 +233,11 @@
         .order-card .header .id {
             color: #d4af37;
             font-weight: 700;
+        }
+
+        .order-card .header .doc-id {
+            color: #666;
+            font-size: 11px;
         }
 
         .order-card .header .status {
@@ -777,7 +784,6 @@
 
         </div>
     </section>
-
     <!-- ===== FOOTER ===== -->
     <footer class="footer">
         <div class="footer-container">
@@ -788,12 +794,30 @@
             <div class="footer-box">
                 <h3>Quick Links</h3>
                 <a href="index.html">Home</a>
-                <a href="index.html#products">Shop</a>
                 <a href="orders.html">Orders</a>
-                <a href="tracking.html">Track</a>
-                <a href="wishlist.html">Wishlist</a>
                 <a href="admin.html">Admin</a>
                 <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-box">
+                <h3>Follow Us</h3>
+                <div style="display:flex; gap:15px; margin-top:10px; flex-wrap:wrap;">
+                    <a href="https://www.instagram.com/hassisignaturenoir" target="_blank"
+                        style="color:#888; transition:0.3s; font-size:22px;">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="https://www.facebook.com/share/p/1Jwp8Fjgfx/" target="_blank"
+                        style="color:#888; transition:0.3s; font-size:22px;">
+                        <i class="fa-brands fa-facebook"></i>
+                    </a>
+                    <a href="https://www.tiktok.com/@hassisignaturenoir" target="_blank"
+                        style="color:#888; transition:0.3s; font-size:22px;">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+                    <a href="https://wa.me/923323365097" target="_blank"
+                        style="color:#888; transition:0.3s; font-size:22px;">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                </div>
             </div>
             <div class="footer-box">
                 <h3>Contact</h3>
@@ -806,6 +830,7 @@
         </div>
     </footer>
 
+    
     <!-- ===== CART SIDEBAR ===== -->
     <div class="cart-sidebar" id="cart-sidebar">
         <div class="cart-header">
@@ -817,12 +842,14 @@
         </div>
         <div class="cart-footer">
             <h3>Total: Rs. <span id="cart-total">0</span></h3>
-            <a href="checkout.html" class="checkout-btn" style="display:block; text-align:center; text-decoration:none;">Proceed to Checkout</a>
+            <a href="checkout.html" class="checkout-btn"
+                style="display:block; text-align:center; text-decoration:none;">Proceed to Checkout</a>
         </div>
     </div>
 
     <!-- ===== WHATSAPP BUTTON ===== -->
-    <a href="https://wa.me/923323365097?text=Hello%20HASSI%20Signature%20Noir" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+    <a href="https://wa.me/923323365097?text=Hello%20HASSI%20Signature%20Noir" class="whatsapp-float" target="_blank"
+        aria-label="Chat on WhatsApp">
         <i class="fa-brands fa-whatsapp"></i>
         <span class="whatsapp-tooltip">💬 Chat with us</span>
         <span class="whatsapp-badge">1</span>
@@ -831,7 +858,7 @@
     <!-- ===== COMPLETE JAVASCRIPT ===== -->
     <script>
         // ====================================
-        // ADMIN.JS - COMPLETE WITH ORDER ACTIONS
+        // ADMIN.JS - COMPLETE
         // ====================================
 
         console.log('✅ Admin JS Loaded!');
@@ -883,30 +910,6 @@
         function formatPrice(price) {
             return Number(price).toLocaleString('en-PK');
         }
-
-        // ====================================
-        // UPDATE ORDER STATUS
-        // ====================================
-        window.updateOrderStatus = function(orderId, status) {
-            if (!confirm(`Are you sure you want to mark order ${orderId} as ${status}?`)) return;
-
-            try {
-                // Update localStorage
-                let orders = JSON.parse(localStorage.getItem('orders')) || [];
-                const index = orders.findIndex(o => o.id === orderId || o.firestoreId === orderId);
-                if (index > -1) {
-                    orders[index].status = status;
-                    localStorage.setItem('orders', JSON.stringify(orders));
-                }
-
-                alert(`✅ Order ${orderId} marked as ${status}!`);
-                loadAdminDashboard();
-
-            } catch (error) {
-                console.error('❌ Error updating order:', error);
-                alert('⚠️ Error updating order. Please try again.');
-            }
-        };
 
         // ====================================
         // LOAD STOCK DATA
@@ -1031,9 +1034,6 @@
             }
         }
 
-        // ====================================
-        // DISPLAY ORDERS - WITH ACTIONS
-        // ====================================
         function displayOrders(orders) {
             const container = document.getElementById('adminOrders');
             if (!container) return;
@@ -1051,10 +1051,7 @@
                     shipped: 'Shipped 🚚',
                     delivered: 'Delivered ✅',
                     cancelled: 'Cancelled ❌'
-                } [statusClass] || statusClass;
-
-                // ✅ SHOW ACTIONS ONLY IF NOT DELIVERED OR CANCELLED
-                const showActions = statusClass !== 'delivered' && statusClass !== 'cancelled';
+                }[statusClass] || statusClass;
 
                 let itemsHTML = '';
                 if (order.items && order.items.length > 0) {
@@ -1086,16 +1083,6 @@
                         <div class="footer">
                             <span class="total">Total: Rs. ${formatPrice(order.total || 0)}</span>
                             <span style="color:#888; font-size:13px;">💳 ${order.paymentMethod || 'Cash on Delivery'}</span>
-                            ${showActions ? `
-                                <div class="actions">
-                                    <button class="deliver-btn" onclick="window.updateOrderStatus('${order.id}', 'delivered')">
-                                        ✅ Deliver
-                                    </button>
-                                    <button class="cancel-btn" onclick="window.updateOrderStatus('${order.id}', 'cancelled')">
-                                        ❌ Cancel
-                                    </button>
-                                </div>
-                            ` : ''}
                         </div>
                     </div>
                 `;
@@ -1134,6 +1121,7 @@
             const container = document.getElementById('adminOrders');
             if (!container) return;
 
+            // Update active button
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
@@ -1230,16 +1218,16 @@
         // ====================================
         // EVENT LISTENERS
         // ====================================
-        document.getElementById('cart-icon')?.addEventListener('click', function(e) {
+        document.getElementById('cart-icon')?.addEventListener('click', function (e) {
             e.preventDefault();
             document.getElementById('cart-sidebar')?.classList.add('active');
         });
 
-        document.getElementById('close-cart')?.addEventListener('click', function() {
+        document.getElementById('close-cart')?.addEventListener('click', function () {
             document.getElementById('cart-sidebar')?.classList.remove('active');
         });
 
-        document.getElementById('menuBtn')?.addEventListener('click', function() {
+        document.getElementById('menuBtn')?.addEventListener('click', function () {
             document.getElementById('navMenu')?.classList.toggle('active');
         });
 
@@ -1251,14 +1239,11 @@
         window.updateStock = updateStock;
         window.filterOrders = filterOrders;
         window.loadSubscribers = loadSubscribers;
-        window.updateOrderStatus = updateOrderStatus;
 
         // ====================================
         // LOADER & INIT
         // ====================================
-        let allOrders = [];
-
-        window.addEventListener('load', function() {
+        window.addEventListener('load', function () {
             if (!checkAdminAccess()) return;
 
             loadAdminDashboard();
