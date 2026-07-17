@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CEO | HASSI Signature Noir</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        .ceo-page {
+            padding: 80px 5%;
+            min-height: 70vh;
+        }
+
+        .ceo-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            background: #1a1a1a;
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .ceo-image {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ceo-image .avatar {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #d4af37, #b8962c);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            color: #000;
+            border: 5px solid #d4af37;
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.2);
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+
+        .ceo-image .avatar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 30px 80px rgba(212, 175, 55, 0.3);
+        }
+
+        .ceo-image .badge {
+            display: inline-block;
+            background: #d4af37;
+            color: #000;
+            padding: 6px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .ceo-image .badge i {
+            margin-right: 8px;
+        }
+
+        .ceo-info h1 {
+            font-size: 36px;
+            color: #d4af37;
+            margin-bottom: 5px;
+        }
+
+        .ceo-info .title {
+            color: #888;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .ceo-info .bio {
+            color: #aaa;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            font-size: 15px;
+        }
+
+        .ceo-info .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+            padding: 20px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .ceo-info .stats .stat {
+            text-align: center;
+        }
+
+        .ceo-info .stats .stat .num {
+            font-size: 28px;
+            font-weight: 700;
+            color: #d4af37;
+        }
+
+        .ceo-info .stats .stat .label {
+            color: #888;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .ceo-info .social-links {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .ceo-info .social-links a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: #0b0b0b;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 30px;
+            color: #888;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .ceo-info .social-links a:hover {
+            border-color: #d4af37;
+            color: #fff;
+            transform: translateY(-3px);
+        }
+
+        .ceo-info .social-links a i {
+            font-size: 18px;
+        }
+
+        .ceo-info .social-links a .fa-tiktok:hover {
+            color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            .ceo-container {
+                grid-template-columns: 1fr;
+                padding: 25px;
+                text-align: center;
+            }
+
+            .ceo-image .avatar {
+                width: 180px;
+                height: 180px;
+                font-size: 60px;
+            }
+
+            .ceo-info h1 {
+                font-size: 28px;
+            }
+
+            .ceo-info .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .ceo-info .social-links {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .ceo-container {
+                padding: 20px;
+            }
+
+            .ceo-image .avatar {
+                width: 140px;
+                height: 140px;
+                font-size: 45px;
+            }
+
+            .ceo-info h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo">HASSI <span>Signature Noir</span></a>
+            <button class="menu-btn" id="menuBtn"><i class="fa-solid fa-bars"></i></button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#products">Shop</a></li>
+                <li><a href="orders.html">Orders</a></li>
+                <li><a href="tracking.html">Track</a></li>
+                <li><a href="wishlist.html">Wishlist</a></li>
+                <li><a href="ceo.html" class="active">CEO</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="admin.html">Admin</a></li>
+                <li><a href="profile.html">Profile</a></li>
+            </ul>
+            <div class="nav-icons">
+                <a href="login.html"><i class="fa-regular fa-user"></i></a>
+                <a href="#" id="cart-icon">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cart-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ===== CEO PAGE ===== -->
+    <section class="ceo-page">
+        <div class="section-heading">
+            <span>✦ Meet The Founder ✦</span>
+            <h2>HASSI Signature Noir</h2>
+        </div>
+
+        <div class="ceo-container">
+            <!-- Image -->
+            <div class="ceo-image">
+                <div class="avatar">
+                    <i class="fa-regular fa-user"></i>
+                </div>
+                <span class="badge"><i class="fa-solid fa-crown"></i> CEO & Founder</span>
+                <p style="color:#888; font-size:13px; margin-top:10px;">"Luxury is in the details"</p>
+            </div>
+
+            <!-- Info -->
+            <div class="ceo-info">
+                <h1>Hassan Abbasi</h1>
+                <p class="title">Founder & CEO, HASSI Signature Noir</p>
+
+                <p class="bio">
+                    With a passion for luxury fragrances and a vision to bring premium quality perfumes to Pakistan,
+                    Hassan Abbasi founded HASSI Signature Noir. His dedication to excellence and attention to detail
+                    has made the brand synonymous with elegance and sophistication.
+                </p>
+
+                <div class="stats">
+                    <div class="stat">
+                        <div class="num">5+</div>
+                        <div class="label">Years Experience</div>
+                    </div>
+                    <div class="stat">
+                        <div class="num">50+</div>
+                        <div class="label">Premium Scents</div>
+                    </div>
+                    <div class="stat">
+                        <div class="num">10K+</div>
+                        <div class="label">Happy Customers</div>
+                    </div>
+                </div>
+            <div class="social-links">
+                <a href="https://www.instagram.com/hassisignaturenoir" target="_blank">
+                    <i class="fa-brands fa-instagram"></i> Instagram
+                </a>
+                <a href="https://www.facebook.com/share/p/1Jwp8Fjgfx/" target="_blank">
+                    <i class="fa-brands fa-facebook"></i> Facebook
+                </a>
+                <a href="https://www.tiktok.com/@hassisignaturenoir" target="_blank">
+                    <i class="fa-brands fa-tiktok"></i> TikTok
+                </a>
+                <a href="https://wa.me/923323365097" target="_blank">
+                    <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                </a>
+            </div>
+                      
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-box">
+                <h3>HASSI</h3>
+                <p>Luxury perfumes crafted for elegance.</p>
+                <p style="margin-top:10px; color:#666; font-size:12px;">📞 0333-2944558 (Marvikamran)</p>
+            </div>
+            <div class="footer-box">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="index.html#products">Shop</a>
+                <a href="orders.html">Orders</a>
+                <a href="tracking.html">Track</a>
+                <a href="wishlist.html">Wishlist</a>
+                <a href="ceo.html">CEO</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-box">
+                <h3>Contact</h3>
+                <p>hassanali590110@gmail.com</p>
+                <p>+92 332 3365097</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 HASSI Signature Noir.</p>
+        </div>
+    </footer>
+
+    <!-- ===== CART SIDEBAR ===== -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h2>🛒 Cart</h2>
+            <button id="close-cart">✕</button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <p style="color:#888; text-align:center; padding:40px 0;">Your cart is empty.</p>
+        </div>
+        <div class="cart-footer">
+            <h3>Total: Rs. <span id="cart-total">0</span></h3>
+            <a href="checkout.html" class="checkout-btn"
+                style="display:block; text-align:center; text-decoration:none;">Proceed to Checkout</a>
+        </div>
+    </div>
+
+    <!-- ===== WHATSAPP BUTTON ===== -->
+    <a href="https://wa.me/923323365097?text=Hello%20HASSI%20Signature%20Noir" class="whatsapp-float" target="_blank"
+        aria-label="Chat on WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+        <span class="whatsapp-tooltip">💬 Chat with us</span>
+        <span class="whatsapp-badge">1</span>
+    </a>
+
+    <!-- ===== FIREBASE ===== -->
+    <script type="module">
+        import { auth, db, collection, addDoc, getDocs } from './firebase.js';
+        console.log('✅ Firebase Connected!');
+    </script>
+
+    <!-- ===== MAIN SCRIPT ===== -->
+    <script>
+        // ====================================
+        // CEO PAGE - CART FUNCTIONS
+        // ====================================
+
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        function formatPrice(price) {
+            return Number(price).toLocaleString('en-PK');
+        }
+
+        function updateCartUI() {
+            const items = document.getElementById('cart-items');
+            const total = document.getElementById('cart-total');
+            const count = document.getElementById('cart-count');
+
+            if (!items) return;
+
+            let totalPrice = 0;
+            if (cart.length === 0) {
+                items.innerHTML = `<p style="color:#888; text-align:center; padding:40px 0;">Your cart is empty.</p>`;
+            } else {
+                items.innerHTML = '';
+                cart.forEach((item, index) => {
+                    totalPrice += item.price;
+                    items.innerHTML += `
+                        <div style="display:flex; align-items:center; gap:15px; padding:12px 0; border-bottom:1px solid #333;">
+                            <img src="${item.image || 'images/hawas-ice.jpg'}" style="width:60px; height:60px; object-fit:cover; border-radius:10px;" onerror="this.src='images/hawas-ice.jpg'">
+                            <div style="flex:1;">
+                                <h4 style="font-size:14px;">${item.name}</h4>
+                                <p style="color:#d4af37; font-weight:600;">Rs. ${formatPrice(item.price)}</p>
+                            </div>
+                            <button onclick="removeFromCart(${index})" style="background:transparent; border:none; color:#ff4444; font-size:18px; cursor:pointer;">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
+                        </div>
+                    `;
+                });
+            }
+            if (total) total.textContent = formatPrice(totalPrice);
+            if (count) count.textContent = cart.length;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartUI();
+        }
+
+        document.getElementById('cart-icon')?.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.getElementById('cart-sidebar')?.classList.add('active');
+        });
+
+        document.getElementById('close-cart')?.addEventListener('click', function () {
+            document.getElementById('cart-sidebar')?.classList.remove('active');
+        });
+
+        document.getElementById('menuBtn')?.addEventListener('click', function () {
+            document.getElementById('navMenu')?.classList.toggle('active');
+        });
+
+        window.addEventListener('load', function () {
+            const loader = document.getElementById('loader');
+            if (loader) setTimeout(() => loader.classList.add('hide'), 800);
+            updateCartUI();
+            console.log('✅ CEO Page Loaded!');
+        });
+
+        window.removeFromCart = removeFromCart;
+        window.updateCartUI = updateCartUI;
+    </script>
+
+</body>
+
+</html>
