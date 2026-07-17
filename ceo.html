@@ -4,7 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CEO | HASSI Signature Noir</title>
+
+    <!-- ✅ SEO TAGS -->
+    <title>Hassan Abbasi - CEO & Founder | HASSI Signature Noir</title>
+    <meta name="description" content="Hassan Abbasi is the Founder & CEO of HASSI Signature Noir, a premium luxury perfume brand based in Pakistan. Passionate about fragrances and elegance.">
+    <meta name="keywords" content="Hassan Abbasi, HASSI Signature Noir, CEO, Founder, Luxury Perfumes, Pakistan, Perfume Brand">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Hassan Abbasi - CEO & Founder | HASSI Signature Noir">
+    <meta property="og:description" content="Meet Hassan Abbasi, the visionary behind HASSI Signature Noir - Pakistan's premium luxury perfume brand.">
+    <meta property="og:image" content="https://hassanali590110-png.github.io/HASSI-Signature-Noir/images/ceo.jpg">
+    <meta property="og:url" content="https://hassanali590110-png.github.io/HASSI-Signature-Noir/ceo.html">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Hassan Abbasi - CEO & Founder">
+    <meta name="twitter:description" content="Meet the visionary behind HASSI Signature Noir.">
+    <meta name="twitter:image" content="https://hassanali590110-png.github.io/HASSI-Signature-Noir/images/ceo.jpg">
 
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
@@ -143,35 +160,23 @@
             transform: translateY(-3px);
         }
 
-        .ceo-info .social-links a i {
-            font-size: 18px;
-        }
-
-        .ceo-info .social-links a .fa-tiktok:hover {
-            color: #fff;
-        }
-
         @media (max-width: 768px) {
             .ceo-container {
                 grid-template-columns: 1fr;
                 padding: 25px;
                 text-align: center;
             }
-
             .ceo-image .avatar {
                 width: 180px;
                 height: 180px;
                 font-size: 60px;
             }
-
             .ceo-info h1 {
                 font-size: 28px;
             }
-
             .ceo-info .stats {
                 grid-template-columns: 1fr;
             }
-
             .ceo-info .social-links {
                 justify-content: center;
             }
@@ -181,13 +186,11 @@
             .ceo-container {
                 padding: 20px;
             }
-
             .ceo-image .avatar {
                 width: 140px;
                 height: 140px;
                 font-size: 45px;
             }
-
             .ceo-info h1 {
                 font-size: 24px;
             }
@@ -265,21 +268,25 @@
                         <div class="label">Happy Customers</div>
                     </div>
                 </div>
-            <div class="social-links">
-                <a href="https://www.instagram.com/hassisignaturenoir" target="_blank">
-                    <i class="fa-brands fa-instagram"></i> Instagram
-                </a>
-                <a href="https://www.facebook.com/share/p/1Jwp8Fjgfx/" target="_blank">
-                    <i class="fa-brands fa-facebook"></i> Facebook
-                </a>
-                <a href="https://www.tiktok.com/@hassisignaturenoir" target="_blank">
-                    <i class="fa-brands fa-tiktok"></i> TikTok
-                </a>
-                <a href="https://wa.me/923323365097" target="_blank">
-                    <i class="fa-brands fa-whatsapp"></i> WhatsApp
-                </a>
+
+                <div class="social-links">
+                    <a href="https://www.instagram.com/hassisignaturenoir" target="_blank">
+                        <i class="fa-brands fa-instagram"></i> Instagram
+                    </a>
+                    <a href="https://www.facebook.com/share/p/1Jwp8Fjgfx/" target="_blank">
+                        <i class="fa-brands fa-facebook"></i> Facebook
+                    </a>
+                    <a href="https://www.tiktok.com/@hassisignaturenoir" target="_blank">
+                        <i class="fa-brands fa-tiktok"></i> TikTok
+                    </a>
+                    <a href="https://wa.me/923323365097" target="_blank">
+                        <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                    </a>
+                </div>
             </div>
-                      
+        </div>
+    </section>
+
     <!-- ===== FOOTER ===== -->
     <footer class="footer">
         <div class="footer-container">
@@ -297,6 +304,23 @@
                 <a href="wishlist.html">Wishlist</a>
                 <a href="ceo.html">CEO</a>
                 <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-box">
+                <h3>Follow Us</h3>
+                <div style="display:flex; gap:15px; margin-top:10px; flex-wrap:wrap;">
+                    <a href="https://www.instagram.com/hassisignaturenoir" target="_blank" style="color:#888; transition:0.3s; font-size:22px;">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="https://www.facebook.com/share/p/1Jwp8Fjgfx/" target="_blank" style="color:#888; transition:0.3s; font-size:22px;">
+                        <i class="fa-brands fa-facebook"></i>
+                    </a>
+                    <a href="https://www.tiktok.com/@hassisignaturenoir" target="_blank" style="color:#888; transition:0.3s; font-size:22px;">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+                    <a href="https://wa.me/923323365097" target="_blank" style="color:#888; transition:0.3s; font-size:22px;">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                </div>
             </div>
             <div class="footer-box">
                 <h3>Contact</h3>
@@ -320,14 +344,12 @@
         </div>
         <div class="cart-footer">
             <h3>Total: Rs. <span id="cart-total">0</span></h3>
-            <a href="checkout.html" class="checkout-btn"
-                style="display:block; text-align:center; text-decoration:none;">Proceed to Checkout</a>
+            <a href="checkout.html" class="checkout-btn" style="display:block; text-align:center; text-decoration:none;">Proceed to Checkout</a>
         </div>
     </div>
 
     <!-- ===== WHATSAPP BUTTON ===== -->
-    <a href="https://wa.me/923323365097?text=Hello%20HASSI%20Signature%20Noir" class="whatsapp-float" target="_blank"
-        aria-label="Chat on WhatsApp">
+    <a href="https://wa.me/923323365097?text=Hello%20HASSI%20Signature%20Noir" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
         <i class="fa-brands fa-whatsapp"></i>
         <span class="whatsapp-tooltip">💬 Chat with us</span>
         <span class="whatsapp-badge">1</span>
@@ -341,10 +363,6 @@
 
     <!-- ===== MAIN SCRIPT ===== -->
     <script>
-        // ====================================
-        // CEO PAGE - CART FUNCTIONS
-        // ====================================
-
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
         function formatPrice(price) {
@@ -389,20 +407,20 @@
             updateCartUI();
         }
 
-        document.getElementById('cart-icon')?.addEventListener('click', function (e) {
+        document.getElementById('cart-icon')?.addEventListener('click', function(e) {
             e.preventDefault();
             document.getElementById('cart-sidebar')?.classList.add('active');
         });
 
-        document.getElementById('close-cart')?.addEventListener('click', function () {
+        document.getElementById('close-cart')?.addEventListener('click', function() {
             document.getElementById('cart-sidebar')?.classList.remove('active');
         });
 
-        document.getElementById('menuBtn')?.addEventListener('click', function () {
+        document.getElementById('menuBtn')?.addEventListener('click', function() {
             document.getElementById('navMenu')?.classList.toggle('active');
         });
 
-        window.addEventListener('load', function () {
+        window.addEventListener('load', function() {
             const loader = document.getElementById('loader');
             if (loader) setTimeout(() => loader.classList.add('hide'), 800);
             updateCartUI();
