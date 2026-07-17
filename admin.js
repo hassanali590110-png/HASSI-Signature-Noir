@@ -5,7 +5,7 @@
 console.log('✅ Admin JS Loaded!');
 
 // ====================================
-// ONLY ADMIN EMAIL - FIXED
+// ONLY ADMIN EMAIL
 // ====================================
 const ADMIN_EMAIL = "hassanali590110@gmail.com";
 
@@ -27,7 +27,6 @@ function checkAdminAccess() {
         return false;
     }
 
-    // ✅ SAHI EMAIL CHECK
     if (user.email !== ADMIN_EMAIL) {
         document.body.innerHTML = `
             <div class="admin-access-denied" style="display:flex; justify-content:center; align-items:center; min-height:100vh; background:#0b0b0b; flex-direction:column; padding:20px; text-align:center;">
@@ -35,8 +34,7 @@ function checkAdminAccess() {
                 <h2 style="color:#ff4444; margin:20px 0 10px;">⛔ Unauthorized Access</h2>
                 <p style="color:#888;">You (${user.email}) do not have permission.</p>
                 <p style="color:#888; font-size:14px;">Only <strong style="color:#d4af37;">hassanali590110@gmail.com</strong> can access admin panel.</p>
-                <p style="color:#888; font-size:13px;">Please login with the correct admin email.</p>
-                <a href="logout.html" style="margin-top:10px; padding:10px 25px; background:#dc3545; color:#fff; border-radius:30px; text-decoration:none; font-weight:600;">🚪 Logout & Try Again</a>
+                <a href="logout.html" style="margin-top:10px; padding:10px 25px; background:#dc3545; color:#fff; border-radius:30px; text-decoration:none; font-weight:600;">🚪 Logout</a>
                 <a href="index.html" style="margin-top:10px; padding:10px 25px; background:#333; color:#fff; border-radius:30px; text-decoration:none; font-weight:600;">🏠 Go Home</a>
             </div>
         `;
@@ -194,7 +192,7 @@ function displayOrders(orders) {
             shipped: 'Shipped 🚚',
             delivered: 'Delivered ✅',
             cancelled: 'Cancelled ❌'
-        }[statusClass] || statusClass;
+        } [statusClass] || statusClass;
 
         let itemsHTML = '';
         if (order.items && order.items.length > 0) {
@@ -291,7 +289,7 @@ window.loadSubscribers = loadSubscribers;
 // ====================================
 // LOADER
 // ====================================
-window.addEventListener('load', function () {
+window.addEventListener('load', function() {
     if (!checkAdminAccess()) return;
     loadAdminDashboard();
     loadStockData();
