@@ -1026,4 +1026,255 @@
                     showEmptyState();
                 }
             } catch (error) {
-                console.error
+                console.error('❌ Error loading orders:', error);
+                showEmptyState();
+            }
+        }
+
+        // ====================================
+        // DISPLAY ORDERS - WITH ACTIONS
+        // ====================================
+        function displayOrders(orders) {
+            const container = document.getElementById('adminOrders');
+            if (!container) return;
+
+            if (orders.length === 0) {
+                showEmptyState();
+                return;
+            }
+
+            container.innerHTML = '';
+            orders.slice().reverse().forEach(order => {
+                const statusClass = order.status || 'processing';
+                const statusLabel = {
+                    processing: 'Processing ⏳',
+                    shipped: 'Shipped 🚚',
+                    delivered: 'Delivered ✅',
+                    cancelled: 'Cancelled ❌'
+                } [statusClass] || statusClass;
+
+                // ✅ SHOW ACTIONS ONLY IF NOT DELIVERED OR CANCELLED
+                const showActions = statusClass !== 'delivered' && statusClass !== 'cancelled';
+
+                let itemsHTML = '';
+                if (order.items && order.items.length > 0) {
+                    order.items.forEach(item => {
+                        itemsHTML += `
+                            <div class="item">
+                                <span class="name">${item.name}</span>
+                                <span class="qty">× ${item.quantity || 1}</span>
+                                <span class="price">Rs. ${formatPrice(item.price)}</span>
+                            </div>
+                        `;
+                    });
+                }
+
+                container.innerHTML += `
+                    <div class="order-card">
+                        <div class="header">
+                            <span class="id">📦 Order #${order.id}</span>
+                            <span style="color:#888; font-size:13px;">${order.date}</span>
+                            <span class="status ${statusClass}">${statusLabel}</span>
+                        </div>
+                        <div class="details">
+                            <strong>👤 ${order.billing?.name || 'Unknown'}</strong><br>
+                            📧 ${order.billing?.email || 'N/A'}<br>
+                            📞 ${order.billing?.phone || 'N/A'}<br>
+                            📍 ${order.billing?.address || 'N/A'}
+                        </div>
+                        <div class="items-list">${itemsHTML}</div>
+                        <div class="footer">
+                            <span class="total">Total: Rs. ${formatPrice(order.total || 0)}</span>
+                            <span style="color:#888; font-size:13px;">💳 ${order.paymentMethod || 'Cash on Delivery'}</span>
+                            ${showActions ? `
+                                <div class="actions">
+                                    <button class="deliver-btn" onclick="window.updateOrderStatus('${order.id}', 'delivered')">
+                                        ✅ Deliver
+                                    </button>
+                                    <button class="cancel-btn" onclick="window.updateOrderStatus('${order.id}', 'cancelled')">
+                                        ❌ Cancel
+                                    </button>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function updateStats(orders) {
+            const pending = orders.filter(o => o.status === 'processing' || o.status === 'shipped');
+            const delivered = orders.filter(o => o.status === 'delivered');
+            document.getElementById('pendingOrders').textContent = pending.length;
+            document.getElementById('deliveredOrders').textContent = delivered.length;
+            document.getElementById('totalOrders').textContent = orders.length;
+
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            document.getElementById('totalUsers').textContent = users.length;
+        }
+
+        function showEmptyState() {
+            const container = document.getElementById('adminOrders');
+            container.innerHTML = `
+                <div class="no-orders">
+                    <i class="fa-regular fa-clock"></i>
+                    <h3>No Orders Yet</h3>
+                    <p>When customers place orders, they will appear here.</p>
+                </div>
+            `;
+            document.getElementById('pendingOrders').textContent = '0';
+            document.getElementById('deliveredOrders').textContent = '0';
+            document.getElementById('totalOrders').textContent = '0';
+        }
+
+        // ====================================
+        // FILTER ORDERS
+        // ====================================
+        function filterOrders(status) {
+            const container = document.getElementById('adminOrders');
+            if (!container) return;
+
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            const activeBtn = document.querySelector(`.filter-btn[onclick*="'${status}'"]`);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            let filtered = allOrders;
+            if (status !== 'all') {
+                filtered = allOrders.filter(order => order.status === status);
+            }
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div class="no-orders">
+                        <i class="fa-regular fa-clock"></i>
+                        <h3>No ${status} Orders</h3>
+                    </div>
+                `;
+                return;
+            }
+
+            displayOrders(filtered);
+        }
+
+        // ====================================
+        // LOAD SUBSCRIBERS
+        // ====================================
+        function loadSubscribers() {
+            const subscribers = JSON.parse(localStorage.getItem('subscribers')) || [];
+            const container = document.getElementById('subscriberList');
+            const count = document.getElementById('subscriberCount');
+            if (count) count.textContent = subscribers.length;
+            if (!container) return;
+
+            if (subscribers.length === 0) {
+                container.innerHTML = '<div class="no-subscribers">No subscribers yet.</div>';
+                return;
+            }
+
+            container.innerHTML = '';
+            subscribers.slice().reverse().forEach(sub => {
+                container.innerHTML += `
+                    <div class="subscriber-item">
+                        <span class="email">${sub.email}</span>
+                        <span class="date">${sub.date}</span>
+                    </div>
+                `;
+            });
+        }
+
+        // ====================================
+        // CART FUNCTIONS
+        // ====================================
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        function updateCartUI() {
+            const items = document.getElementById('cart-items');
+            const total = document.getElementById('cart-total');
+            const count = document.getElementById('cart-count');
+
+            if (!items) return;
+
+            let totalPrice = 0;
+            if (cart.length === 0) {
+                items.innerHTML = `<p style="color:#888; text-align:center; padding:40px 0;">Your cart is empty.</p>`;
+            } else {
+                items.innerHTML = '';
+                cart.forEach((item, index) => {
+                    totalPrice += item.price;
+                    items.innerHTML += `
+                        <div style="display:flex; align-items:center; gap:15px; padding:12px 0; border-bottom:1px solid rgba(255,255,255,0.06);">
+                            <img src="${item.image || 'images/hawas-ice.jpg'}" style="width:60px; height:60px; object-fit:cover; border-radius:10px;" onerror="this.src='images/hawas-ice.jpg'">
+                            <div style="flex:1;">
+                                <h4 style="font-size:14px; color:#f5f0eb;">${item.name}</h4>
+                                <p style="color:#d4af37; font-weight:600;">Rs. ${formatPrice(item.price)}</p>
+                            </div>
+                            <button onclick="removeFromCart(${index})" style="background:transparent; border:none; color:#ff6b6b; font-size:18px; cursor:pointer;">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
+                        </div>
+                    `;
+                });
+            }
+            if (total) total.textContent = formatPrice(totalPrice);
+            if (count) count.textContent = cart.length;
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartUI();
+        }
+
+        // ====================================
+        // EVENT LISTENERS
+        // ====================================
+        document.getElementById('cart-icon')?.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('cart-sidebar')?.classList.add('active');
+        });
+
+        document.getElementById('close-cart')?.addEventListener('click', function() {
+            document.getElementById('cart-sidebar')?.classList.remove('active');
+        });
+
+        document.getElementById('menuBtn')?.addEventListener('click', function() {
+            document.getElementById('navMenu')?.classList.toggle('active');
+        });
+
+        // ====================================
+        // MAKE FUNCTIONS GLOBAL
+        // ====================================
+        window.loadAdminDashboard = loadAdminDashboard;
+        window.loadStockData = loadStockData;
+        window.updateStock = updateStock;
+        window.filterOrders = filterOrders;
+        window.loadSubscribers = loadSubscribers;
+        window.updateOrderStatus = updateOrderStatus;
+
+        // ====================================
+        // LOADER & INIT
+        // ====================================
+        let allOrders = [];
+
+        window.addEventListener('load', function() {
+            if (!checkAdminAccess()) return;
+
+            loadAdminDashboard();
+            updateCartUI();
+            loadStockData();
+            loadSubscribers();
+
+            // Auto refresh every 30 seconds
+            setInterval(() => {
+                loadAdminDashboard();
+            }, 30000);
+
+            console.log('✅ Admin Dashboard Loaded!');
+        });
+    </script>
+
+</body>
+
+</html>
