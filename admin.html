@@ -695,6 +695,7 @@
                 <li><a href="wishlist.html">Wishlist</a></li>
                 <li><a href="admin.html" class="active">Admin</a></li>
                 <li><a href="contact.html">Contact</a></li>
+                <li><a href="profile.html">Profile</a></li>
             </ul>
             <div class="nav-icons">
                 <a href="login.html"><i class="fa-regular fa-user"></i></a>
@@ -794,7 +795,10 @@
             <div class="footer-box">
                 <h3>Quick Links</h3>
                 <a href="index.html">Home</a>
+                <a href="index.html#products">Shop</a>
                 <a href="orders.html">Orders</a>
+                <a href="tracking.html">Track</a>
+                <a href="wishlist.html">Wishlist</a>
                 <a href="admin.html">Admin</a>
                 <a href="contact.html">Contact</a>
             </div>
@@ -825,9 +829,9 @@
         </div>
     </div>
 
-    <!-- ===== WHATSAPP FLOATING BUTTON ===== -->
-    <a href="https://wa.me/923323365097?text=Hello%20HASSI%20Signature%20Noir%2C%20I%20want%20to%20know%20about%20your%20products."
-        class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+    <!-- ===== WHATSAPP BUTTON ===== -->
+    <a href="https://wa.me/923323365097?text=Hello%20HASSI%20Signature%20Noir" class="whatsapp-float" target="_blank"
+        aria-label="Chat on WhatsApp">
         <i class="fa-brands fa-whatsapp"></i>
         <span class="whatsapp-tooltip">💬 Chat with us</span>
         <span class="whatsapp-badge">1</span>
@@ -836,25 +840,22 @@
     <!-- ===== COMPLETE JAVASCRIPT ===== -->
     <script>
         // ====================================
-        // ADMIN DASHBOARD - COMPLETE
+        // ADMIN.JS - COMPLETE
         // ====================================
 
+        console.log('✅ Admin JS Loaded!');
+
+        // ====================================
+        // ONLY ADMIN EMAIL
+        // ====================================
         const ADMIN_EMAIL = "hassanali590110@gmail.com";
-        let allOrders = [];
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-        // ====================================
-        // FORMAT PRICE
-        // ====================================
-        function formatPrice(price) {
-            return Number(price).toLocaleString('en-PK');
-        }
 
         // ====================================
         // CHECK ADMIN ACCESS
         // ====================================
         function checkAdminAccess() {
             const user = JSON.parse(localStorage.getItem('currentUser'));
+
             if (!user) {
                 document.body.innerHTML = `
                     <div class="admin-access-denied">
@@ -866,27 +867,37 @@
                 `;
                 return false;
             }
+
             if (user.email !== ADMIN_EMAIL) {
                 document.body.innerHTML = `
                     <div class="admin-access-denied">
                         <i class="fa-solid fa-ban ban-icon"></i>
                         <h2 class="red-text">⛔ Unauthorized Access</h2>
                         <p>You (${user.email}) do not have permission.</p>
-                        <a href="index.html" class="btn-dark">🏠 Go Home</a>
+                        <p style="color:#888; font-size:14px;">Only <strong style="color:#d4af37;">hassanali590110@gmail.com</strong> can access admin panel.</p>
+                        <a href="logout.html" style="margin-top:10px; padding:10px 25px; background:#dc3545; color:#fff; border-radius:30px; text-decoration:none; font-weight:600;">🚪 Logout</a>
+                        <a href="index.html" class="btn-dark" style="margin-top:10px;">🏠 Go Home</a>
                     </div>
                 `;
                 return false;
             }
-            console.log('✅ Admin Access Granted!');
+
+            console.log('✅ Admin Access Granted to:', user.email);
             return true;
         }
 
         // ====================================
-        // LOAD STOCK DATA - FIXED
+        // FORMAT PRICE
+        // ====================================
+        function formatPrice(price) {
+            return Number(price).toLocaleString('en-PK');
+        }
+
+        // ====================================
+        // LOAD STOCK DATA
         // ====================================
         function loadStockData() {
             let products = JSON.parse(localStorage.getItem('mainProducts')) || [];
-
             if (products.length === 0) {
                 products = [{
                     id: 1,
@@ -899,8 +910,9 @@
                 localStorage.setItem('mainProducts', JSON.stringify(products));
             }
 
-            const product = products[0] || products[0];
+            const product = products[0];
             const card = document.getElementById('stockCard');
+            if (!card) return;
 
             const stock = product.stock || 0;
             let statusClass = 'in-stock';
@@ -913,7 +925,6 @@
                 statusText = '⚠️ Low Stock (' + stock + ' left)';
             }
 
-            // ✅ FIXED - Single image tag
             card.innerHTML = `
                 <img src="${product.image || 'images/hawas-ice.jpg'}" alt="${product.name}" onerror="this.src='images/hawas-ice.jpg'">
                 <div class="info">
@@ -938,7 +949,6 @@
         function updateStock() {
             const input = document.getElementById('stockInput');
             const newStock = parseInt(input.value);
-
             if (isNaN(newStock) || newStock < 0) {
                 alert('❌ Please enter a valid quantity (0 or more)');
                 return;
@@ -975,10 +985,6 @@
 
             alert('✅ Stock updated to ' + newStock);
             loadStockData();
-
-            if (typeof loadProducts === 'function') {
-                loadProducts();
-            }
         }
 
         // ====================================
@@ -996,55 +1002,20 @@
             `;
 
             try {
-                // Try localStorage first (fast)
                 let orders = JSON.parse(localStorage.getItem('orders')) || [];
-
                 if (orders.length > 0) {
-                    allOrders = orders;
                     displayOrders(orders);
                     updateStats(orders);
                     console.log('📦 Orders loaded from localStorage:', orders.length);
                 } else {
                     showEmptyState();
                 }
-
-                // Try Firebase in background
-                try {
-                    const { db, collection, getDocs, query, orderBy } = await import('./firebase.js');
-                    const q = query(collection(db, "orders"), orderBy("createdAt", "desc"));
-                    const snapshot = await getDocs(q);
-
-                    let firebaseOrders = [];
-                    snapshot.forEach(doc => {
-                        firebaseOrders.push({ firestoreId: doc.id, ...doc.data() });
-                    });
-
-                    if (firebaseOrders.length > 0) {
-                        allOrders = firebaseOrders;
-                        displayOrders(firebaseOrders);
-                        updateStats(firebaseOrders);
-                        console.log('✅ Orders loaded from Firebase:', firebaseOrders.length);
-                    }
-                } catch (firebaseError) {
-                    console.log('⚠️ Firebase not available, using localStorage');
-                }
-
             } catch (error) {
                 console.error('❌ Error loading orders:', error);
-                const localOrders = JSON.parse(localStorage.getItem('orders')) || [];
-                if (localOrders.length > 0) {
-                    allOrders = localOrders;
-                    displayOrders(localOrders);
-                    updateStats(localOrders);
-                } else {
-                    showEmptyState();
-                }
+                showEmptyState();
             }
         }
 
-        // ====================================
-        // DISPLAY ORDERS
-        // ====================================
         function displayOrders(orders) {
             const container = document.getElementById('adminOrders');
             if (!container) return;
@@ -1055,7 +1026,6 @@
             }
 
             container.innerHTML = '';
-            // Show latest first
             orders.slice().reverse().forEach(order => {
                 const statusClass = order.status || 'processing';
                 const statusLabel = {
@@ -1078,19 +1048,15 @@
                     });
                 }
 
-                const displayId = order.id || order.orderId || 'N/A';
-                const docId = order.firestoreId || order.id || 'N/A';
-
                 container.innerHTML += `
                     <div class="order-card">
                         <div class="header">
-                            <span class="id">📦 Order #${displayId}</span>
-                            <span class="doc-id">Doc: ${docId}</span>
-                            <span style="color:#888; font-size:13px;">${order.date || new Date(order.createdAt).toLocaleDateString()}</span>
+                            <span class="id">📦 Order #${order.id}</span>
+                            <span style="color:#888; font-size:13px;">${order.date}</span>
                             <span class="status ${statusClass}">${statusLabel}</span>
                         </div>
                         <div class="details">
-                            <strong>👤 ${order.billing?.fullName || order.billing?.name || 'Unknown'}</strong><br>
+                            <strong>👤 ${order.billing?.name || 'Unknown'}</strong><br>
                             📧 ${order.billing?.email || 'N/A'}<br>
                             📞 ${order.billing?.phone || 'N/A'}<br>
                             📍 ${order.billing?.address || 'N/A'}
@@ -1099,65 +1065,15 @@
                         <div class="footer">
                             <span class="total">Total: Rs. ${formatPrice(order.total || 0)}</span>
                             <span style="color:#888; font-size:13px;">💳 ${order.paymentMethod || 'Cash on Delivery'}</span>
-                            <div class="actions">
-                                ${statusClass !== 'delivered' && statusClass !== 'cancelled' ? `
-                                    <button class="deliver-btn" onclick="updateOrderStatus('${docId}', '${displayId}', 'delivered')">
-                                        ✅ Deliver
-                                    </button>
-                                    <button class="cancel-btn" onclick="updateOrderStatus('${docId}', '${displayId}', 'cancelled')">
-                                        ❌ Cancel
-                                    </button>
-                                ` : ''}
-                            </div>
                         </div>
                     </div>
                 `;
             });
         }
 
-        // ====================================
-        // UPDATE ORDER STATUS
-        // ====================================
-        function updateOrderStatus(firestoreId, displayId, status) {
-            if (!confirm(`Are you sure you want to mark order ${displayId} as ${status}?`)) return;
-
-            try {
-                // Update localStorage
-                let orders = JSON.parse(localStorage.getItem('orders')) || [];
-                const index = orders.findIndex(o => o.id === displayId || o.id === firestoreId);
-                if (index > -1) {
-                    orders[index].status = status;
-                    localStorage.setItem('orders', JSON.stringify(orders));
-                }
-
-                // Try Firebase
-                import('./firebase.js').then(async (firebase) => {
-                    const { db, doc, updateDoc } = firebase;
-                    try {
-                        const orderRef = doc(db, "orders", firestoreId);
-                        await updateDoc(orderRef, { status: status, updatedAt: new Date().toISOString() });
-                        console.log('✅ Order updated in Firebase');
-                    } catch (e) {
-                        console.log('⚠️ Could not update Firebase, but localStorage updated');
-                    }
-                });
-
-                alert(`✅ Order ${displayId} marked as ${status}!`);
-                loadAdminDashboard();
-
-            } catch (error) {
-                console.error('❌ Error updating order:', error);
-                alert('⚠️ Error updating order. Try again.');
-            }
-        }
-
-        // ====================================
-        // UPDATE STATS
-        // ====================================
         function updateStats(orders) {
             const pending = orders.filter(o => o.status === 'processing' || o.status === 'shipped');
             const delivered = orders.filter(o => o.status === 'delivered');
-
             document.getElementById('pendingOrders').textContent = pending.length;
             document.getElementById('deliveredOrders').textContent = delivered.length;
             document.getElementById('totalOrders').textContent = orders.length;
@@ -1166,9 +1082,6 @@
             document.getElementById('totalUsers').textContent = users.length;
         }
 
-        // ====================================
-        // SHOW EMPTY STATE
-        // ====================================
         function showEmptyState() {
             const container = document.getElementById('adminOrders');
             container.innerHTML = `
@@ -1222,8 +1135,8 @@
             const subscribers = JSON.parse(localStorage.getItem('subscribers')) || [];
             const container = document.getElementById('subscriberList');
             const count = document.getElementById('subscriberCount');
-
             if (count) count.textContent = subscribers.length;
+            if (!container) return;
 
             if (subscribers.length === 0) {
                 container.innerHTML = '<div class="no-subscribers">No subscribers yet.</div>';
@@ -1244,6 +1157,8 @@
         // ====================================
         // CART FUNCTIONS
         // ====================================
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
         function updateCartUI() {
             const items = document.getElementById('cart-items');
             const total = document.getElementById('cart-total');
@@ -1260,7 +1175,7 @@
                     totalPrice += item.price;
                     items.innerHTML += `
                         <div style="display:flex; align-items:center; gap:15px; padding:12px 0; border-bottom:1px solid rgba(255,255,255,0.06);">
-                            <img src="${item.image || 'images/hawas-ice.jpg'}" style="width:60px; height:60px; object-fit:cover; border-radius:10px;">
+                            <img src="${item.image || 'images/hawas-ice.jpg'}" style="width:60px; height:60px; object-fit:cover; border-radius:10px;" onerror="this.src='images/hawas-ice.jpg'">
                             <div style="flex:1;">
                                 <h4 style="font-size:14px; color:#f5f0eb;">${item.name}</h4>
                                 <p style="color:#d4af37; font-weight:600;">Rs. ${formatPrice(item.price)}</p>
@@ -1306,7 +1221,6 @@
         window.updateStock = updateStock;
         window.filterOrders = filterOrders;
         window.loadSubscribers = loadSubscribers;
-        window.updateOrderStatus = updateOrderStatus;
 
         // ====================================
         // LOADER & INIT
