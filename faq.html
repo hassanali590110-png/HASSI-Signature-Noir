@@ -151,11 +151,9 @@
             .faq-question h3 {
                 font-size: 15px;
             }
-
             .faq-answer {
                 font-size: 14px;
             }
-
             .faq-category-btn {
                 font-size: 12px;
                 padding: 6px 16px;
@@ -201,10 +199,8 @@
                 <p>Find answers to common questions about our products and services</p>
             </div>
 
-            <!-- Search -->
             <input type="text" class="faq-search" id="faqSearch" placeholder="🔍 Search FAQ...">
 
-            <!-- Categories -->
             <div class="faq-categories">
                 <button class="faq-category-btn active" data-category="all">📋 All</button>
                 <button class="faq-category-btn" data-category="orders">📦 Orders</button>
@@ -213,7 +209,6 @@
                 <button class="faq-category-btn" data-category="payment">💳 Payment</button>
             </div>
 
-            <!-- FAQ List -->
             <div id="faqList">
                 <!-- FAQs loaded by JavaScript -->
             </div>
@@ -227,14 +222,13 @@
             <div class="footer-box">
                 <h3>HASSI</h3>
                 <p>Luxury perfumes crafted for elegance.</p>
-                <p style="margin-top:10px; color:#666; font-size:12px;">📞 03323365097 (Hassan ali)</p>
             </div>
             <div class="footer-box">
                 <h3>Quick Links</h3>
                 <a href="index.html">Home</a>
                 <a href="index.html#products">Shop</a>
                 <a href="orders.html">Orders</a>
-                <a href="tracking.html">Track Order</a>
+                <a href="tracking.html">Track</a>
                 <a href="wishlist.html">Wishlist</a>
                 <a href="faq.html">FAQ</a>
                 <a href="contact.html">Contact</a>
@@ -261,30 +255,24 @@
         </div>
         <div class="cart-footer">
             <h3>Total: Rs. <span id="cart-total">0</span></h3>
-            <a href="checkout.html" class="checkout-btn"
-                style="display:block; text-align:center; text-decoration:none;">Proceed to Checkout</a>
+            <a href="checkout.html" class="checkout-btn" style="display:block; text-align:center; text-decoration:none;">Proceed to Checkout</a>
         </div>
     </div>
 
-    <!-- ===== WHATSAPP FLOATING BUTTON ===== -->
-    <a href="https://wa.me/923323365097?text=Hello%20HASSI%20Signature%20Noir%2C%20I%20have%20a%20question."
+    <!-- ===== WHATSAPP BUTTON ===== -->
+    <a href="https://wa.me/923323365097?text=Hello%20HASSI%20Signature%20Noir"
         class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
         <i class="fa-brands fa-whatsapp"></i>
         <span class="whatsapp-tooltip">💬 Chat with us</span>
         <span class="whatsapp-badge">1</span>
     </a>
 
-    <!-- ===== FIREBASE ===== -->
-    <script type="module">
-        import { auth, db, collection, addDoc, getDocs } from './firebase.js';
-        console.log('✅ Firebase Connected!');
-    </script>
-
-    <!-- ===== MAIN SCRIPT ===== -->
     <script>
         // ====================================
         // FAQ - COMPLETE
         // ====================================
+
+        console.log('✅ FAQ JS Loaded!');
 
         const faqs = [{
             id: 1,
@@ -388,14 +376,12 @@
             const items = document.querySelectorAll('.faq-item');
             const currentItem = items[index];
 
-            // Close all other FAQs
             items.forEach((item, i) => {
                 if (i !== index) {
                     item.classList.remove('active');
                 }
             });
 
-            // Toggle current FAQ
             currentItem.classList.toggle('active');
         }
 
@@ -440,7 +426,7 @@
         document.getElementById('faqSearch')?.addEventListener('input', searchFaqs);
 
         document.querySelectorAll('.faq-category-btn').forEach(btn => {
-            btn.addEventListener('click', function () {
+            btn.addEventListener('click', function() {
                 filterByCategory(this.dataset.category);
             });
         });
@@ -449,10 +435,6 @@
         // CART FUNCTIONS
         // ====================================
         let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-        function formatPrice(price) {
-            return Number(price).toLocaleString('en-PK');
-        }
 
         function updateCartUI() {
             const items = document.getElementById('cart-items');
@@ -470,7 +452,7 @@
                     totalPrice += item.price;
                     items.innerHTML += `
                         <div style="display:flex; align-items:center; gap:15px; padding:12px 0; border-bottom:1px solid #333;">
-                            <img src="${item.image || 'images/hawas-ice.jpg'}" style="width:60px; height:60px; object-fit:cover; border-radius:10px;">
+                            <img src="${item.image || 'images/hawas-ice.jpg'}" style="width:60px; height:60px; object-fit:cover; border-radius:10px;" onerror="this.src='images/hawas-ice.jpg'">
                             <div style="flex:1;">
                                 <h4 style="font-size:14px;">${item.name}</h4>
                                 <p style="color:#d4af37; font-weight:600;">Rs. ${formatPrice(item.price)}</p>
@@ -492,41 +474,34 @@
             updateCartUI();
         }
 
-        document.getElementById('cart-icon')?.addEventListener('click', function (e) {
+        document.getElementById('cart-icon')?.addEventListener('click', function(e) {
             e.preventDefault();
             document.getElementById('cart-sidebar')?.classList.add('active');
         });
 
-        document.getElementById('close-cart')?.addEventListener('click', function () {
+        document.getElementById('close-cart')?.addEventListener('click', function() {
             document.getElementById('cart-sidebar')?.classList.remove('active');
         });
 
-        document.getElementById('menuBtn')?.addEventListener('click', function () {
+        document.getElementById('menuBtn')?.addEventListener('click', function() {
             document.getElementById('navMenu')?.classList.toggle('active');
         });
 
-        // ====================================
-        // LOADER
-        // ====================================
-        window.addEventListener('load', function () {
+        window.addEventListener('load', function() {
             const loader = document.getElementById('loader');
             if (loader) setTimeout(() => loader.classList.add('hide'), 800);
             renderFaqs(faqs);
             updateCartUI();
-            console.log('✅ FAQ Page Loaded!');
-            console.log(`📋 ${faqs.length} FAQs loaded`);
         });
 
-        // ====================================
-        // MAKE FUNCTIONS GLOBAL
-        // ====================================
         window.toggleFaq = toggleFaq;
         window.searchFaqs = searchFaqs;
         window.filterByCategory = filterByCategory;
         window.removeFromCart = removeFromCart;
         window.updateCartUI = updateCartUI;
 
-        console.log('✅ FAQ Page Ready!');
+        console.log('✅ FAQ Page Loaded!');
+        console.log(`📋 ${faqs.length} FAQs loaded`);
     </script>
 
 </body>
