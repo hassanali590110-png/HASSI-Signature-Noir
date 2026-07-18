@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://hassanali590110-png.github.io/HASSI-Signature-Noir/sitemap.xml
