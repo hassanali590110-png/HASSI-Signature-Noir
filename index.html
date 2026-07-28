@@ -2,1034 +2,143 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rassasi Hawas Ice | Premium Fragrance</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HASSI Signature Noir</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600;700&display=swap"
-        rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
-    <style>
-        /* ====================================
-           RASSASI HAWAS ICE - STYLES
-           ==================================== */
-
-        /* ===== RESET ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #0b0b0b;
-            color: #f5f0eb;
-            line-height: 1.6;
-            transition: background 0.3s, color 0.3s;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        img {
-            max-width: 100%;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* ===== LOADER ===== */
-        #loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #0b0b0b;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 99999;
-            transition: 0.5s;
-        }
-
-        #loader.hide {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .loader-spinner {
-            width: 50px;
-            height: 50px;
-            border: 3px solid #333;
-            border-top: 3px solid #c9a84c;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* ===== NAVBAR ===== */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 18px 5%;
-            background: rgba(11, 11, 11, 0.95);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 999;
-        }
-
-        .logo {
-            font-size: 24px;
-            font-weight: 700;
-            font-family: 'Playfair Display', serif;
-            color: #c9a84c;
-        }
-
-        .logo span {
-            color: #f5f0eb;
-            font-weight: 300;
-            font-size: 14px;
-            font-family: 'Inter', sans-serif;
-            letter-spacing: 1px;
-        }
-
-        .nav-menu {
-            display: flex;
-            gap: 30px;
-            list-style: none;
-        }
-
-        .nav-menu a {
-            color: #aaa;
-            font-size: 14px;
-            font-weight: 500;
-            transition: 0.3s;
-            position: relative;
-        }
-
-        .nav-menu a:hover,
-        .nav-menu a.active {
-            color: #c9a84c;
-        }
-
-        .nav-menu a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #c9a84c;
-            transition: 0.3s;
-        }
-
-        .nav-menu a:hover::after,
-        .nav-menu a.active::after {
-            width: 100%;
-        }
-
-        .nav-icons {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .nav-icons a {
-            color: #aaa;
-            font-size: 18px;
-            transition: 0.3s;
-            position: relative;
-        }
-
-        .nav-icons a:hover {
-            color: #c9a84c;
-        }
-
-        #cart-count {
-            position: absolute;
-            top: -8px;
-            right: -10px;
-            background: #c9a84c;
-            color: #0b0b0b;
-            font-size: 11px;
-            font-weight: 700;
-            padding: 2px 8px;
-            border-radius: 50%;
-            min-width: 20px;
-            text-align: center;
-        }
-
-        .menu-btn {
-            display: none;
-            background: transparent;
-            border: none;
-            color: #f5f0eb;
-            font-size: 24px;
-            cursor: pointer;
-        }
-
-        /* ===== HERO ===== */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 100px 5% 60px;
-            background: linear-gradient(135deg, #0b0b0b 0%, #1a1a1a 100%);
-        }
-
-        .hero .container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
-        }
-
-        .hero-content h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 52px;
-            line-height: 1.1;
-            margin-bottom: 20px;
-        }
-
-        .hero-content h1 span {
-            color: #c9a84c;
-        }
-
-        .hero-content .subtitle {
-            color: #c9a84c;
-            font-size: 14px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .hero-content p {
-            color: #aaa;
-            font-size: 16px;
-            max-width: 450px;
-            margin-bottom: 30px;
-        }
-
-        .hero-content .price {
-            font-size: 32px;
-            font-weight: 700;
-            color: #c9a84c;
-            margin-bottom: 25px;
-        }
-
-        .hero-content .price small {
-            font-size: 18px;
-            color: #888;
-            font-weight: 400;
-            text-decoration: line-through;
-            margin-left: 12px;
-        }
-
-        .hero-actions {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .btn-primary {
-            padding: 14px 40px;
-            background: #c9a84c;
-            color: #0b0b0b;
-            border: none;
-            border-radius: 30px;
-            font-weight: 700;
-            font-size: 16px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .btn-primary:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 30px rgba(201, 168, 76, 0.3);
-        }
-
-        .btn-secondary {
-            padding: 14px 30px;
-            background: transparent;
-            color: #f5f0eb;
-            border: 1px solid #333;
-            border-radius: 30px;
-            font-weight: 600;
-            font-size: 16px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .btn-secondary:hover {
-            border-color: #c9a84c;
-            color: #c9a84c;
-        }
-
-        .hero-image {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .hero-image img {
-            max-width: 100%;
-            max-height: 500px;
-            object-fit: contain;
-            filter: drop-shadow(0 20px 60px rgba(201, 168, 76, 0.15));
-            transition: 0.5s;
-        }
-
-        .hero-image img:hover {
-            transform: scale(1.02);
-        }
-
-        /* ===== PRODUCTS SECTION ===== */
-        .products-section {
-            padding: 80px 5%;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .section-title span {
-            color: #c9a84c;
-            letter-spacing: 3px;
-            font-size: 13px;
-            text-transform: uppercase;
-        }
-
-        .section-title h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 36px;
-            margin-top: 8px;
-        }
-
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .product-card {
-            background: #141414;
-            border-radius: 16px;
-            padding: 30px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            transition: 0.3s;
-        }
-
-        .product-card:hover {
-            border-color: #c9a84c;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 40px rgba(201, 168, 76, 0.1);
-        }
-
-        .product-card img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            transition: 0.5s;
-        }
-
-        .product-card:hover img {
-            transform: scale(1.03);
-        }
-
-        .product-card h3 {
-            font-size: 20px;
-            color: #f5f0eb;
-        }
-
-        .product-card .price {
-            font-size: 22px;
-            font-weight: 700;
-            color: #c9a84c;
-            margin: 10px 0;
-        }
-
-        .product-btn {
-            padding: 12px 30px;
-            background: #c9a84c;
-            color: #0b0b0b;
-            border: none;
-            border-radius: 25px;
-            font-weight: 700;
-            font-size: 15px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .product-btn:hover {
-            transform: scale(1.05);
-        }
-
-        .product-btn:disabled {
-            background: #555;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        /* ===== FEATURES ===== */
-        .features {
-            padding: 80px 5%;
-            background: #0f0f0f;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .feature {
-            text-align: center;
-            padding: 20px;
-        }
-
-        .feature i {
-            font-size: 32px;
-            color: #c9a84c;
-            margin-bottom: 12px;
-        }
-
-        .feature h4 {
-            color: #f5f0eb;
-            font-size: 16px;
-            margin-bottom: 6px;
-        }
-
-        .feature p {
-            color: #888;
-            font-size: 13px;
-        }
-
-        /* ===== REVIEWS ===== */
-        .reviews {
-            padding: 80px 5%;
-        }
-
-        .reviews-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 25px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .review-card {
-            background: #141414;
-            padding: 25px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            text-align: center;
-            transition: 0.3s;
-        }
-
-        .review-card:hover {
-            border-color: #c9a84c;
-        }
-
-        .review-card .stars {
-            font-size: 18px;
-            color: #c9a84c;
-            margin-bottom: 8px;
-        }
-
-        .review-card p {
-            color: #aaa;
-            font-size: 14px;
-            font-style: italic;
-            margin-bottom: 8px;
-        }
-
-        .review-card h4 {
-            color: #f5f0eb;
-            font-size: 14px;
-        }
-
-        /* ===== SHARE SECTION ===== */
-        .share-section {
-            padding: 60px 5%;
-            text-align: center;
-        }
-
-        .share-buttons {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .share-buttons button {
-            padding: 10px 25px;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: 0.3s;
-        }
-
-        .share-buttons button:hover {
-            transform: scale(1.05);
-        }
-
-        .share-buttons .fb {
-            background: #1877F2;
-            color: #fff;
-        }
-
-        .share-buttons .tw {
-            background: #000;
-            color: #fff;
-        }
-
-        .share-buttons .wa {
-            background: #25D366;
-            color: #fff;
-        }
-
-        /* ===== FOOTER ===== */
-        .footer {
-            padding: 50px 5% 25px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            background: #0b0b0b;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-        }
-
-        .footer-box h3 {
-            color: #c9a84c;
-            font-size: 18px;
-            margin-bottom: 12px;
-            font-family: 'Playfair Display', serif;
-        }
-
-        .footer-box p,
-        .footer-box a {
-            color: #888;
-            font-size: 14px;
-            line-height: 2;
-            display: block;
-            transition: 0.3s;
-        }
-
-        .footer-box a:hover {
-            color: #c9a84c;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 30px;
-            margin-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            color: #666;
-            font-size: 13px;
-        }
-
-        /* ===== CART SIDEBAR ===== */
-        .cart-sidebar {
-            position: fixed;
-            top: 0;
-            right: -430px;
-            width: 400px;
-            height: 100vh;
-            background: #141414;
-            padding: 30px;
-            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 99999;
-            overflow-y: auto;
-            border-left: 2px solid rgba(201, 168, 76, 0.3);
-        }
-
-        .cart-sidebar.active {
-            right: 0;
-        }
-
-        .cart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-        }
-
-        .cart-header h2 {
-            color: #c9a84c;
-        }
-
-        .cart-header button {
-            background: transparent;
-            border: none;
-            color: #f5f0eb;
-            font-size: 28px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .cart-header button:hover {
-            color: #ff6b6b;
-            transform: rotate(90deg);
-        }
-
-        .cart-items {
-            padding: 20px 0;
-            min-height: 200px;
-        }
-
-        .cart-footer {
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-        }
-
-        .cart-footer h3 {
-            color: #c9a84c;
-            font-size: 20px;
-        }
-
-        .checkout-btn {
-            display: block;
-            background: #c9a84c;
-            color: #0b0b0b;
-            text-align: center;
-            padding: 14px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: 700;
-            transition: 0.3s;
-            margin-top: 15px;
-        }
-
-        .checkout-btn:hover {
-            transform: scale(1.02);
-        }
-
-        /* ===== WHATSAPP FLOAT ===== */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #25D366;
-            color: #fff;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 30px;
-            z-index: 999;
-            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.4);
-            transition: 0.3s;
-            text-decoration: none;
-        }
-
-        .whatsapp-float:hover {
-            transform: scale(1.1);
-        }
-
-        /* ===== BACK TO TOP ===== */
-        .back-to-top {
-            position: fixed;
-            bottom: 100px;
-            right: 30px;
-            background: #c9a84c;
-            color: #0b0b0b;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: none;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            z-index: 999;
-            cursor: pointer;
-            transition: 0.3s;
-            box-shadow: 0 5px 20px rgba(201, 168, 76, 0.3);
-        }
-
-        .back-to-top.show {
-            display: flex;
-        }
-
-        .back-to-top:hover {
-            transform: scale(1.1);
-        }
-
-        /* ===== NEWSLETTER POPUP ===== */
-        .newsletter-popup {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 99999;
-            display: none;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .newsletter-popup.active {
-            display: flex;
-        }
-
-        .popup-content {
-            background: #141414;
-            padding: 40px;
-            border-radius: 16px;
-            max-width: 400px;
-            width: 90%;
-            text-align: center;
-            border: 1px solid #c9a84c;
-            position: relative;
-        }
-
-        .close-popup {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            background: transparent;
-            border: none;
-            color: #888;
-            font-size: 24px;
-            cursor: pointer;
-        }
-
-        .close-popup:hover {
-            color: #ff6b6b;
-        }
-
-        .popup-content h2 {
-            color: #c9a84c;
-            font-size: 24px;
-        }
-
-        .popup-content p {
-            color: #888;
-            margin: 10px 0 20px;
-        }
-
-        .popup-content input {
-            width: 100%;
-            padding: 12px;
-            background: #0b0b0b;
-            border: 1px solid #333;
-            color: #f5f0eb;
-            border-radius: 10px;
-            outline: none;
-            margin-bottom: 15px;
-        }
-
-        .popup-content input:focus {
-            border-color: #c9a84c;
-        }
-
-        .popup-content button {
-            width: 100%;
-            padding: 12px;
-            background: #c9a84c;
-            color: #0b0b0b;
-            border: none;
-            border-radius: 10px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .popup-content button:hover {
-            transform: scale(1.02);
-        }
-
-        /* ====================================
-           RESPONSIVE
-           ==================================== */
-        @media (max-width: 900px) {
-            .hero .container {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .hero-content p {
-                margin: 0 auto 20px;
-            }
-
-            .hero-actions {
-                justify-content: center;
-            }
-
-            .hero-image img {
-                max-height: 350px;
-            }
-
-            .features-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .menu-btn {
-                display: block;
-            }
-
-            .nav-menu {
-                position: fixed;
-                top: 75px;
-                left: 0;
-                right: 0;
-                background: #0b0b0b;
-                flex-direction: column;
-                padding: 30px;
-                gap: 18px;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-                transform: translateY(-150%);
-                transition: 0.3s;
-                z-index: 998;
-            }
-
-            .nav-menu.active {
-                transform: translateY(0);
-            }
-
-            .nav-menu a {
-                font-size: 16px;
-            }
-
-            .cart-sidebar {
-                width: 100%;
-                right: -100%;
-            }
-
-            .hero-content h1 {
-                font-size: 36px;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero-content h1 {
-                font-size: 28px;
-            }
-
-            .hero-content .price {
-                font-size: 24px;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .reviews-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .whatsapp-float {
-                width: 50px;
-                height: 50px;
-                font-size: 24px;
-                bottom: 20px;
-                right: 20px;
-            }
-
-            .back-to-top {
-                width: 40px;
-                height: 40px;
-                font-size: 16px;
-                bottom: 80px;
-                right: 20px;
-            }
-        }
-    </style>
 </head>
 
 <body>
 
     <!-- ===== LOADER ===== -->
-    <div id="loader">
-        <div class="loader-spinner"></div>
+    <div class="loader" id="loader">
+        <div class="loader-text">HASSI</div>
     </div>
 
-    <!-- ===== NAVBAR ===== -->
-    <nav class="navbar">
-        <a href="index.html" class="logo">Rassasi <span>Hawas Ice</span></a>
-
-        <ul class="nav-menu" id="navMenu">
-            <li><a href="index.html" class="active">Home</a></li>
-            <li><a href="#products">Shop</a></li>
-            <li><a href="#features">Features</a></li>
-            <li><a href="#reviews">Reviews</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-
-        <div class="nav-icons">
-            <a href="#" id="cart-icon">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <span id="cart-count">0</span>
-            </a>
+    <!-- ===== HEADER ===== -->
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo">HASSI <span>Signature Noir</span></a>
             <button class="menu-btn" id="menuBtn"><i class="fa-solid fa-bars"></i></button>
-        </div>
-    </nav>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="#products">Shop</a></li>
+                <li><a href="#categories">Men</a></li>
+                <li><a href="#categories">Women</a></li>
+                <li><a href="orders.html">Orders</a></li>
+                <li><a href="tracking.html">Track</a></li>
+                <li><a href="wishlist.html">Wishlist</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="admin.html">Admin</a></li>
+                <li><a href="profile.html">Profile</a></li>
+            </ul>
+            <div class="nav-icons">
+                <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle">
+                    <i class="fa-regular fa-moon"></i>
+                </button>
+                <a href="login.html"><i class="fa-regular fa-user"></i></a>
+                <a href="#" id="cart-icon">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cart-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
 
     <!-- ===== HERO ===== -->
-    <section class="hero" id="home">
-        <div class="container">
-            <div class="hero-content">
-                <div class="subtitle">✦ Premium Fragrance ✦</div>
-                <h1>Rassasi <span>Hawas Ice</span></h1>
-                <p>
-                    Experience the cool, refreshing, and long-lasting fragrance that defines elegance.
-                    Inspired by the icy breeze of the mountains.
-                </p>
-                <div class="price">
-                    Rs. 3,000
-                    <small>Rs. 4,500</small>
-                </div>
-                <div class="hero-actions">
-                    <button class="btn-primary" onclick="addToCart(1)">
-                        <i class="fa-solid fa-cart-plus"></i> Add to Cart
-                    </button>
-                    <button class="btn-secondary"
-                        onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">
-                        <i class="fa-regular fa-circle-play"></i> Learn More
-                    </button>
-                </div>
-            </div>
-            <div class="hero-image">
-                <img src="images/hawas-ice.jpg" alt="Rassasi Hawas Ice Perfume"
-                    onerror="this.src='https://via.placeholder.com/400x500/1a1a1a/c9a84c?text=Rassasi+Hawas+Ice'">
-            </div>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Discover <br><span>Timeless Elegance</span></h1>
+            <p>Experience premium perfumes crafted with passion. Long-lasting fragrances designed for confidence and
+                elegance.</p>
+            <a href="#products" class="btn-primary">Shop Now</a>
+        </div>
+        <div class="hero-image">
+            <img src="images/hawas-ice.jpg" alt="Perfume"
+                onerror="this.src='https://via.placeholder.com/400/1a1a1a/d4af37?text=HASSI'">
+        </div>
+    </section>
+
+    <!-- ===== SEARCH ===== -->
+    <section class="search-section">
+        <div class="search-box">
+            <input type="text" id="search-input" placeholder="Search Perfumes...">
         </div>
     </section>
 
     <!-- ===== PRODUCTS ===== -->
-    <section class="products-section" id="products">
-        <div class="section-title">
-            <span>✦ Our Signature ✦</span>
-            <h2>Rassasi Hawas Ice</h2>
+    <section class="featured" id="products">
+        <div class="section-heading">
+            <span>✦ Premium Collection ✦</span>
+            <h2>Featured Perfumes</h2>
         </div>
-        <div class="products-grid" id="products-container">
-            <!-- Products loaded by JavaScript -->
-        </div>
+        <div class="products" id="products-container"></div>
     </section>
 
-    <!-- ===== FEATURES ===== -->
-    <section class="features" id="features">
-        <div class="features-grid">
-            <div class="feature">
-                <i class="fa-solid fa-wind"></i>
-                <h4>Long Lasting</h4>
-                <p>Up to 12 hours of refreshing fragrance</p>
-            </div>
-            <div class="feature">
-                <i class="fa-solid fa-snowflake"></i>
-                <h4>Ice Cool</h4>
-                <p>Inspired by mountain breeze</p>
-            </div>
-            <div class="feature">
-                <i class="fa-solid fa-leaf"></i>
-                <h4>Natural Ingredients</h4>
-                <p>Premium quality essential oils</p>
-            </div>
-            <div class="feature">
-                <i class="fa-solid fa-medal"></i>
-                <h4>Premium Quality</h4>
-                <p>Crafted with perfection</p>
-            </div>
+    <!-- ===== CATEGORIES ===== -->
+    <section class="categories" id="categories">
+        <div class="section-heading">
+            <span>Shop By Category</span>
+            <h2>Our Collections</h2>
         </div>
-    </section>
-
-    <!-- ===== REVIEWS ===== -->
-    <section class="reviews" id="reviews">
-        <div class="section-title">
-            <span>✦ Testimonials ✦</span>
-            <h2>What People Say</h2>
-        </div>
-        <div class="reviews-grid">
-            <div class="review-card">
-                <div class="stars">⭐⭐⭐⭐⭐</div>
-                <p>"Amazing fragrance! It lasts all day and everyone compliments it."</p>
-                <h4>— Ahmed Raza</h4>
+        <div class="category-box">
+            <div class="category-card" onclick="filterProducts('Men')">
+                <h3>👔 Men's</h3>
             </div>
-            <div class="review-card">
-                <div class="stars">⭐⭐⭐⭐⭐</div>
-                <p>"The best perfume I've ever used. Fresh, elegant, and unique."</p>
-                <h4>— Sara Khan</h4>
+            <div class="category-card" onclick="filterProducts('Women')">
+                <h3>👗 Women's</h3>
             </div>
-            <div class="review-card">
-                <div class="stars">⭐⭐⭐⭐</div>
-                <p>"Ice cool and refreshing. Perfect for daily use."</p>
-                <h4>— Usman Ali</h4>
+            <div class="category-card" onclick="filterProducts('Unisex')">
+                <h3>🌟 Unisex</h3>
             </div>
-        </div>
-    </section>
-
-    <!-- ===== SHARE SECTION ===== -->
-    <section class="share-section">
-        <div class="section-title">
-            <span>✦ Share The Love ✦</span>
-            <h2>Spread The Elegance</h2>
-        </div>
-        <div class="share-buttons">
-            <button class="fb" onclick="shareOnFacebook()"><i class="fa-brands fa-facebook"></i> Facebook</button>
-            <button class="tw" onclick="shareOnTwitter()"><i class="fa-brands fa-x-twitter"></i> Twitter</button>
-            <button class="wa" onclick="shareOnWhatsApp()"><i class="fa-brands fa-whatsapp"></i> WhatsApp</button>
+            <div class="category-card" onclick="filterProducts('Luxury')">
+                <h3>👑 Luxury</h3>
+            </div>
         </div>
     </section>
 
     <!-- ===== FOOTER ===== -->
-    <footer class="footer" id="contact">
-        <div class="footer-content">
+    <footer class="footer">
+        <div class="footer-container">
             <div class="footer-box">
-                <h3>Rassasi Hawas Ice</h3>
-                <p>Premium fragrance crafted for elegance.</p>
+                <h3>HASSI</h3>
+                <p>Luxury perfumes crafted for elegance.</p>
+                <p style="margin-top:10px; color:#666; font-size:12px;">📞 0333-2944558 (Marvikamran)</p>
             </div>
             <div class="footer-box">
                 <h3>Quick Links</h3>
                 <a href="index.html">Home</a>
                 <a href="#products">Shop</a>
-                <a href="#reviews">Reviews</a>
-                <a href="#contact">Contact</a>
+                <a href="orders.html">Orders</a>
+                <a href="tracking.html">Track</a>
+                <a href="wishlist.html">Wishlist</a>
+                <a href="ceo.html">CEO</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-box">
+                <h3>Follow Us</h3>
+                <div style="display:flex; gap:15px; margin-top:10px; flex-wrap:wrap;">
+                    <a href="https://www.instagram.com/hassisignaturenoir" target="_blank"
+                        style="color:#888; transition:0.3s; font-size:22px;">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="https://www.facebook.com/share/p/1Jwp8Fjgfx/" target="_blank"
+                        style="color:#888; transition:0.3s; font-size:22px;">
+                        <i class="fa-brands fa-facebook"></i>
+                    </a>
+                    <a href="https://www.tiktok.com/@hassisignaturenoir" target="_blank"
+                        style="color:#888; transition:0.3s; font-size:22px;">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+                    <a href="https://wa.me/923323365097" target="_blank"
+                        style="color:#888; transition:0.3s; font-size:22px;">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                </div>
             </div>
             <div class="footer-box">
                 <h3>Contact</h3>
@@ -1038,37 +147,14 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>© 2026 Rassasi Hawas Ice. All rights reserved.</p>
+            <p>© 2026 HASSI Signature Noir.</p>
         </div>
     </footer>
-
-    <!-- ===== WHATSAPP FLOAT ===== -->
-    <a href="https://wa.me/923323365097" target="_blank" class="whatsapp-float">
-        <i class="fa-brands fa-whatsapp"></i>
-    </a>
-
-    <!-- ===== BACK TO TOP ===== -->
-    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">
-        <i class="fa-solid fa-arrow-up"></i>
-    </button>
-
-    <!-- ===== NEWSLETTER POPUP ===== -->
-    <div class="newsletter-popup" id="newsletterPopup">
-        <div class="popup-content">
-            <button class="close-popup" onclick="closePopup()">✕</button>
-            <h2>📧 Subscribe Now</h2>
-            <p>Get 10% off on your first order!</p>
-            <form id="popupForm">
-                <input type="email" placeholder="Enter your email" required>
-                <button type="submit">Subscribe</button>
-            </form>
-        </div>
-    </div>
 
     <!-- ===== CART SIDEBAR ===== -->
     <div class="cart-sidebar" id="cart-sidebar">
         <div class="cart-header">
-            <h2>🛒 Your Cart</h2>
+            <h2>🛒 Cart</h2>
             <button id="close-cart">✕</button>
         </div>
         <div class="cart-items" id="cart-items">
@@ -1076,13 +162,55 @@
         </div>
         <div class="cart-footer">
             <h3>Total: Rs. <span id="cart-total">0</span></h3>
-            <a href="#" class="checkout-btn" onclick="checkout()">Proceed to Checkout</a>
+            <a href="checkout.html" class="checkout-btn"
+                style="display:block; text-align:center; text-decoration:none;">Proceed to Checkout</a>
         </div>
     </div>
 
-    <!-- ============================================================ -->
-    <!-- JAVASCRIPT -->
-    <!-- ============================================================ -->
+    <!-- ===== LIVE CHAT BUTTON ===== -->
+    <button class="live-chat-btn" onclick="openChat()">
+        <i class="fa-regular fa-comment-dots"></i>
+        <span>Chat</span>
+    </button>
+
+    <!-- ===== LIVE CHAT MODAL ===== -->
+    <div class="chat-modal" id="chatModal">
+        <div class="chat-header">
+            <div>
+                <i class="fa-regular fa-comment-dots" style="color:#d4af37; font-size:18px;"></i>
+                <span style="font-weight:600; margin-left:10px; color:#fff;">Live Chat Support</span>
+            </div>
+            <button onclick="closeChat()"
+                style="background:transparent; border:none; color:#fff; font-size:24px; cursor:pointer;">✕</button>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <div class="chat-message bot">
+                <div class="chat-avatar">🤖</div>
+                <div class="chat-bubble">Hello! 👋 Welcome to HASSI Signature Noir. How can we help you today?</div>
+            </div>
+        </div>
+        <div class="chat-footer">
+            <input type="text" id="chatInput" placeholder="Type your message..."
+                onkeypress="if(event.key==='Enter') sendMessage()">
+            <button onclick="sendMessage()"><i class="fa-regular fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- ===== WHATSAPP FLOATING BUTTON ===== -->
+    <a href="https://wa.me/923323365097?text=Hello%20HASSI%20Signature%20Noir%2C%20I%20want%20to%20know%20about%20your%20products."
+        class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+        <span class="whatsapp-tooltip">💬 Chat with us</span>
+        <span class="whatsapp-badge">1</span>
+    </a>
+
+    <!-- ===== FIREBASE ===== -->
+    <script type="module">
+        import { auth, db, collection, addDoc, getDocs } from './firebase.js';
+        console.log('✅ Firebase Connected!');
+    </script>
+
+    <!-- ===== MAIN SCRIPT ===== -->
     <script src="script.js"></script>
 
 </body>
