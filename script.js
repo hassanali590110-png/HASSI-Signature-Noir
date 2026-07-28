@@ -88,7 +88,7 @@ function addToCart(productId) {
         alert('❌ Out of stock!');
         return;
     }
-
+    
     // Check if already in cart
     const existingItem = cart.find(item => item.id === productId);
     if (existingItem) {
@@ -96,10 +96,10 @@ function addToCart(productId) {
     } else {
         cart.push({ ...product, quantity: 1 });
     }
-
+    
     localStorage.setItem('cart', JSON.stringify(cart));
     updateCartUI();
-
+    
     // Button animation
     const btn = event?.target;
     if (btn) {
@@ -110,7 +110,7 @@ function addToCart(productId) {
             btn.style.background = '#d4af37';
         }, 1500);
     }
-
+    
     console.log(`✅ ${product.name} added to cart!`);
 }
 
@@ -440,7 +440,7 @@ function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-window.addEventListener('scroll', function () {
+window.addEventListener('scroll', function() {
     const btn = document.getElementById('backToTop');
     if (btn) {
         if (window.scrollY > 500) {
@@ -484,7 +484,7 @@ function closePopup() {
     if (popup) popup.classList.remove('active');
 }
 
-document.getElementById('popupForm')?.addEventListener('submit', function (e) {
+document.getElementById('popupForm')?.addEventListener('submit', function(e) {
     e.preventDefault();
     const email = this.querySelector('input[type="email"]')?.value;
     if (email) {
