@@ -11,10 +11,10 @@ const products = [
     {
         id: 1,
         name: 'Rassasi Hawas Ice',
-        price: 8500,
+        price: 3000,
         category: 'Men',
         image: 'images/hawas-ice.jpg',
-        stock: 10,
+        stock: 20,
         desc: 'Premium luxury fragrance with fresh aquatic notes.'
     }
 ];
