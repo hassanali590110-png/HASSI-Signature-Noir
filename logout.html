@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout | HASSI Signature Noir</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <style>
+        .logout-page {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 100px 20px 80px;
+            background: #0d0d0d;
+        }
+
+        .logout-container {
+            max-width: 450px;
+            width: 100%;
+        }
+
+        .logout-box {
+            background: #141414;
+            padding: 45px 35px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .logout-box:hover {
+            border-color: #c9a84c;
+        }
+
+        .logout-box .icon {
+            font-size: 70px;
+            color: #ff6b6b;
+            margin-bottom: 15px;
+        }
+
+        .logout-box h2 {
+            color: #f5f0eb;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .logout-box p {
+            color: #888;
+            font-size: 15px;
+            margin-bottom: 25px;
+        }
+
+        .logout-box .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .logout-box .btn-group .btn-logout {
+            padding: 14px 40px;
+            background: #ff6b6b;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .logout-box .btn-group .btn-logout:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(255, 107, 107, 0.3);
+        }
+
+        .logout-box .btn-group .btn-logout:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .logout-box .btn-group .btn-cancel {
+            padding: 14px 40px;
+            background: #333;
+            color: #f5f0eb;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .logout-box .btn-group .btn-cancel:hover {
+            background: #444;
+            transform: scale(1.05);
+        }
+
+        .logout-box .message {
+            display: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-top: 15px;
+        }
+
+        .logout-box .message.success {
+            display: block;
+            background: #0a2a0a;
+            border: 1px solid #28a745;
+            color: #28a745;
+        }
+
+        .logout-box .message.error {
+            display: block;
+            background: #2a0a0a;
+            border: 1px solid #ff6b6b;
+            color: #ff6b6b;
+        }
+
+        .logout-box .message.info {
+            display: block;
+            background: #1a2a3a;
+            border: 1px solid #17a2b8;
+            color: #17a2b8;
+        }
+
+        .logout-box .redirect-text {
+            display: none;
+            color: #888;
+            font-size: 13px;
+            margin-top: 15px;
+        }
+
+        .logout-box .redirect-text.show {
+            display: block;
+        }
+
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 380px;
+            height: 100vh;
+            background: #141414;
+            padding: 25px;
+            transition: 0.4s;
+            z-index: 9999;
+            overflow-y: auto;
+            border-left: 2px solid rgba(201, 168, 76, 0.3);
+        }
+
+        .cart-sidebar.active {
+            right: 0;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .cart-header h2 {
+            color: #c9a84c;
+        }
+
+        .cart-header button {
+            background: transparent;
+            border: none;
+            color: #f5f0eb;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .cart-items {
+            padding: 20px 0;
+            min-height: 200px;
+        }
+
+        .cart-footer {
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .cart-footer h3 {
+            color: #c9a84c;
+            margin-bottom: 15px;
+        }
+
+        .checkout-btn {
+            display: block;
+            background: #c9a84c;
+            color: #0d0d0d;
+            text-align: center;
+            padding: 12px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        @media (max-width: 480px) {
+            .logout-box {
+                padding: 30px 20px;
+            }
+
+            .logout-box h2 {
+                font-size: 24px;
+            }
+
+            .logout-box .btn-group {
+                flex-direction: column;
+            }
+
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo">HASSI <span>Signature Noir</span></a>
+            <button class="menu-btn" id="menuBtn"><i class="fa-solid fa-bars"></i></button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#products">Shop</a></li>
+                <li><a href="orders.html">My Orders</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="nav-icons">
+                <a href="login.html"><i class="fa-regular fa-user"></i></a>
+                <a href="#" id="cart-icon">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cart-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="logout-page">
+        <div class="logout-container">
+            <div class="logout-box">
+                <div class="icon">
+                    <i class="fa-regular fa-right-from-bracket"></i>
+                </div>
+
+                <h2>🔒 Logout</h2>
+                <p>Are you sure you want to logout from HASSI Signature Noir?</p>
+
+                <div class="btn-group">
+                    <button class="btn-logout" id="logoutBtn">
+                        <i class="fa-regular fa-right-from-bracket"></i> Yes, Logout
+                    </button>
+                    <a href="index.html" class="btn-cancel">
+                        <i class="fa-regular fa-xmark"></i> Cancel
+                    </a>
+                </div>
+
+                <div id="message" class="message"></div>
+                <div id="redirectText" class="redirect-text">Redirecting to home page...</div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-box">
+                <h3>HASSI</h3>
+                <p>Luxury perfumes crafted for elegance.</p>
+            </div>
+            <div class="footer-box">
+                <h3>Quick Links</h3>
+                <a href="index.html">Home</a>
+                <a href="index.html#products">Shop</a>
+                <a href="orders.html">Orders</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="footer-box">
+                <h3>Contact</h3>
+                <p>hassanali590110@gmail.com</p>
+                <p>+92 332 3365097</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 HASSI Signature Noir. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h2>🛒 Your Cart</h2>
+            <button id="close-cart">✕</button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <p style="color:#888; text-align:center; padding:40px 0;">Your cart is empty.</p>
+        </div>
+        <div class="cart-footer">
+            <h3>Total: Rs. <span id="cart-total">0</span></h3>
+            <a href="checkout.html" class="checkout-btn">Proceed to Checkout</a>
+        </div>
+    </div>
+
+    <script type="module">
+        // ====================================
+        // IMPORTS - LOGOUT.JS SE FUNCTIONS
+        // ====================================
+        import { performLogout, redirectToHome } from "./logout.js";
+
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        function formatPrice(price) {
+            return Number(price).toLocaleString('en-PK');
+        }
+
+        // ====================================
+        // LOGOUT BUTTON
+        // ====================================
+        document.getElementById('logoutBtn')?.addEventListener('click', async function () {
+            const btn = this;
+            const messageDiv = document.getElementById('message');
+            const redirectText = document.getElementById('redirectText');
+
+            // Disable button
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Logging out...';
+
+            // Hide previous messages
+            messageDiv.className = 'message';
+            messageDiv.style.display = 'none';
+
+            try {
+                // Call logout function from logout.js
+                const result = await performLogout();
+
+                if (result.success) {
+                    // Show success message
+                    messageDiv.className = 'message success';
+                    messageDiv.style.display = 'block';
+                    messageDiv.textContent = '✅ ' + result.message;
+
+                    // Show redirect text
+                    redirectText.classList.add('show');
+
+                    console.log('✅ Logout successful!');
+
+                    // Redirect after 2 seconds
+                    setTimeout(() => {
+                        redirectToHome();
+                    }, 2000);
+
+                } else {
+                    // Show error message
+                    messageDiv.className = 'message error';
+                    messageDiv.style.display = 'block';
+                    messageDiv.textContent = '❌ ' + result.message;
+
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fa-regular fa-right-from-bracket"></i> Yes, Logout';
+                }
+
+            } catch (error) {
+                console.error('❌ Logout error:', error);
+
+                messageDiv.className = 'message error';
+                messageDiv.style.display = 'block';
+                messageDiv.textContent = '❌ Error logging out. Please try again.';
+
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-regular fa-right-from-bracket"></i> Yes, Logout';
+            }
+        });
+
+        // ====================================
+        // CART FUNCTIONS
+        // ====================================
+        function updateCartUI() {
+            const items = document.getElementById('cart-items');
+            const total = document.getElementById('cart-total');
+            const count = document.getElementById('cart-count');
+
+            if (!items) return;
+
+            let totalPrice = 0;
+            if (cart.length === 0) {
+                items.innerHTML = `<p style="color:#888; text-align:center; padding:40px 0;">Your cart is empty.</p>`;
+            } else {
+                items.innerHTML = '';
+                cart.forEach((item, index) => {
+                    const price = Number(item.price) || 0;
+                    totalPrice += price * (item.quantity || 1);
+                    items.innerHTML += `
+                        <div style="display:flex; align-items:center; gap:15px; padding:12px 0; border-bottom:1px solid rgba(255,255,255,0.06);">
+                            <img src="${item.image || 'https://via.placeholder.com/60'}" style="width:60px; height:60px; object-fit:cover; border-radius:10px;">
+                            <div style="flex:1;">
+                                <h4 style="font-size:14px; color:#f5f0eb;">${item.name}</h4>
+                                <p style="color:#c9a84c; font-weight:600;">Rs. ${formatPrice(price)}</p>
+                            </div>
+                            <button onclick="window.removeFromCart(${index})" style="background:transparent; border:none; color:#ff6b6b; font-size:18px; cursor:pointer;">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
+                        </div>
+                    `;
+                });
+            }
+            if (total) total.textContent = formatPrice(totalPrice);
+            if (count) count.textContent = cart.length;
+        }
+
+        window.removeFromCart = function (index) {
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartUI();
+        };
+
+        document.getElementById('cart-icon')?.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.getElementById('cart-sidebar')?.classList.add('active');
+        });
+
+        document.getElementById('close-cart')?.addEventListener('click', function () {
+            document.getElementById('cart-sidebar')?.classList.remove('active');
+        });
+
+        document.getElementById('menuBtn')?.addEventListener('click', function () {
+            document.getElementById('navMenu')?.classList.toggle('active');
+        });
+
+        // ====================================
+        // PAGE LOAD
+        // ====================================
+        window.addEventListener('load', function () {
+            updateCartUI();
+            console.log('✅ Logout Page Loaded!');
+            console.log('📌 logout.js imported successfully');
+        });
+    </script>
+
+</body>
+
+</html>
