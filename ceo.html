@@ -7,12 +7,15 @@
 
     <!-- ✅ SEO TAGS -->
     <title>Hassan Abbasi - CEO & Founder | HASSI Signature Noir</title>
-    <meta name="description" content="Hassan Abbasi is the Founder & CEO of HASSI Signature Noir, a premium luxury perfume brand based in Pakistan. Passionate about fragrances and elegance.">
-    <meta name="keywords" content="Hassan Abbasi, HASSI Signature Noir, CEO, Founder, Luxury Perfumes, Pakistan, Perfume Brand">
+    <meta name="description"
+        content="Hassan Abbasi is the Founder & CEO of HASSI Signature Noir, a premium luxury perfume brand based in Pakistan. Passionate about fragrances and elegance.">
+    <meta name="keywords"
+        content="Hassan Abbasi, HASSI Signature Noir, CEO, Founder, Luxury Perfumes, Pakistan, Perfume Brand">
 
     <!-- Open Graph -->
     <meta property="og:title" content="Hassan Abbasi - CEO & Founder | HASSI Signature Noir">
-    <meta property="og:description" content="Meet Hassan Abbasi, the visionary behind HASSI Signature Noir - Pakistan's premium luxury perfume brand.">
+    <meta property="og:description"
+        content="Meet Hassan Abbasi, the visionary behind HASSI Signature Noir - Pakistan's premium luxury perfume brand.">
     <meta property="og:image" content="https://hassanali590110-png.github.io/HASSI-Signature-Noir/images/ceo.jpg">
     <meta property="og:url" content="https://hassanali590110-png.github.io/HASSI-Signature-Noir/ceo.html">
     <meta property="og:type" content="website">
@@ -52,23 +55,19 @@
             justify-content: center;
         }
 
-        .ceo-image .avatar {
+        /* ✅ Naya CSS for Image */
+        .ceo-image .ceo-img {
             width: 250px;
             height: 250px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #d4af37, #b8962c);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 80px;
-            color: #000;
             border: 5px solid #d4af37;
+            object-fit: cover;
             box-shadow: 0 20px 60px rgba(212, 175, 55, 0.2);
             margin-bottom: 20px;
             transition: 0.3s;
         }
 
-        .ceo-image .avatar:hover {
+        .ceo-image .ceo-img:hover {
             transform: scale(1.05);
             box-shadow: 0 30px 80px rgba(212, 175, 55, 0.3);
         }
@@ -166,17 +165,20 @@
                 padding: 25px;
                 text-align: center;
             }
-            .ceo-image .avatar {
+
+            .ceo-image .ceo-img {
                 width: 180px;
                 height: 180px;
-                font-size: 60px;
             }
+
             .ceo-info h1 {
                 font-size: 28px;
             }
+
             .ceo-info .stats {
                 grid-template-columns: 1fr;
             }
+
             .ceo-info .social-links {
                 justify-content: center;
             }
@@ -186,11 +188,12 @@
             .ceo-container {
                 padding: 20px;
             }
-            .ceo-image .avatar {
+
+            .ceo-image .ceo-img {
                 width: 140px;
                 height: 140px;
-                font-size: 45px;
             }
+
             .ceo-info h1 {
                 font-size: 24px;
             }
@@ -234,11 +237,13 @@
         </div>
 
         <div class="ceo-container">
-            <!-- Image -->
+            <!-- ✅ Image Section (Updated) -->
             <div class="ceo-image">
-                <div class="avatar">
-                    <i class="fa-regular fa-user"></i>
-                </div>
+                <!-- Yahan apni image ka link hai -->
+                <img src="images/ceo.jpg" alt="Rassasi Hawas Ice Perfume"
+                    alt="Hassan Abbasi - CEO & Founder" class="ceo-img"
+                    onerror="this.src='https://via.placeholder.com/250/d4af37/000000?text=CEO'">
+
                 <span class="badge"><i class="fa-solid fa-crown"></i> CEO & Founder</span>
                 <p style="color:#888; font-size:13px; margin-top:10px;">"Luxury is in the details"</p>
             </div>
@@ -308,16 +313,20 @@
             <div class="footer-box">
                 <h3>Follow Us</h3>
                 <div style="display:flex; gap:15px; margin-top:10px; flex-wrap:wrap;">
-                    <a href="https://www.instagram.com/hassisignaturenoir" target="_blank" style="color:#888; transition:0.3s; font-size:22px;">
+                    <a href="https://www.instagram.com/hassisignaturenoir" target="_blank"
+                        style="color:#888; transition:0.3s; font-size:22px;">
                         <i class="fa-brands fa-instagram"></i>
                     </a>
-                    <a href="https://www.facebook.com/share/p/1Jwp8Fjgfx/" target="_blank" style="color:#888; transition:0.3s; font-size:22px;">
+                    <a href="https://www.facebook.com/share/p/1Jwp8Fjgfx/" target="_blank"
+                        style="color:#888; transition:0.3s; font-size:22px;">
                         <i class="fa-brands fa-facebook"></i>
                     </a>
-                    <a href="https://www.tiktok.com/@hassisignaturenoir" target="_blank" style="color:#888; transition:0.3s; font-size:22px;">
+                    <a href="https://www.tiktok.com/@hassisignaturenoir" target="_blank"
+                        style="color:#888; transition:0.3s; font-size:22px;">
                         <i class="fa-brands fa-tiktok"></i>
                     </a>
-                    <a href="https://wa.me/923323365097" target="_blank" style="color:#888; transition:0.3s; font-size:22px;">
+                    <a href="https://wa.me/923323365097" target="_blank"
+                        style="color:#888; transition:0.3s; font-size:22px;">
                         <i class="fa-brands fa-whatsapp"></i>
                     </a>
                 </div>
@@ -344,12 +353,14 @@
         </div>
         <div class="cart-footer">
             <h3>Total: Rs. <span id="cart-total">0</span></h3>
-            <a href="checkout.html" class="checkout-btn" style="display:block; text-align:center; text-decoration:none;">Proceed to Checkout</a>
+            <a href="checkout.html" class="checkout-btn"
+                style="display:block; text-align:center; text-decoration:none;">Proceed to Checkout</a>
         </div>
     </div>
 
     <!-- ===== WHATSAPP BUTTON ===== -->
-    <a href="https://wa.me/923323365097?text=Hello%20HASSI%20Signature%20Noir" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+    <a href="https://wa.me/923323365097?text=Hello%20HASSI%20Signature%20Noir" class="whatsapp-float" target="_blank"
+        aria-label="Chat on WhatsApp">
         <i class="fa-brands fa-whatsapp"></i>
         <span class="whatsapp-tooltip">💬 Chat with us</span>
         <span class="whatsapp-badge">1</span>
@@ -407,20 +418,20 @@
             updateCartUI();
         }
 
-        document.getElementById('cart-icon')?.addEventListener('click', function(e) {
+        document.getElementById('cart-icon')?.addEventListener('click', function (e) {
             e.preventDefault();
             document.getElementById('cart-sidebar')?.classList.add('active');
         });
 
-        document.getElementById('close-cart')?.addEventListener('click', function() {
+        document.getElementById('close-cart')?.addEventListener('click', function () {
             document.getElementById('cart-sidebar')?.classList.remove('active');
         });
 
-        document.getElementById('menuBtn')?.addEventListener('click', function() {
+        document.getElementById('menuBtn')?.addEventListener('click', function () {
             document.getElementById('navMenu')?.classList.toggle('active');
         });
 
-        window.addEventListener('load', function() {
+        window.addEventListener('load', function () {
             const loader = document.getElementById('loader');
             if (loader) setTimeout(() => loader.classList.add('hide'), 800);
             updateCartUI();
