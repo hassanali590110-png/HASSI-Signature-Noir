@@ -12,10 +12,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
     <style>
-        /* =========================
-        ADMIN PAGE
-        ========================= */
-
         .admin-page {
             padding: 80px 5%;
             min-height: 80vh;
@@ -47,9 +43,13 @@
             margin-top: 8px;
         }
 
+        .admin-email {
+            color: #d4af37 !important;
+            font-size: 14px;
+        }
 
         /* =========================
-        DASHBOARD STATS
+           STATS
         ========================= */
 
         .stats-grid {
@@ -84,9 +84,8 @@
             font-size: 14px;
         }
 
-
         /* =========================
-        SECTION
+           SECTION
         ========================= */
 
         .admin-section {
@@ -102,9 +101,8 @@
             margin-bottom: 25px;
         }
 
-
         /* =========================
-        STOCK
+           STOCK
         ========================= */
 
         .stock-grid {
@@ -125,19 +123,32 @@
             margin-bottom: 8px;
         }
 
-        .stock-card p {
+        .stock-price {
             color: #d4af37;
             font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .stock-category {
+            color: #aaa;
+            font-size: 14px;
             margin-bottom: 15px;
+        }
+
+        .stock-number {
+            color: #fff;
+            font-weight: 700;
         }
 
         .stock-control {
             display: flex;
             gap: 10px;
+            margin-top: 15px;
         }
 
         .stock-control input {
             flex: 1;
+            min-width: 0;
             padding: 10px;
             background: #1a1a1a;
             border: 1px solid #333;
@@ -155,9 +166,12 @@
             font-weight: 600;
         }
 
+        .stock-control button:hover {
+            opacity: 0.85;
+        }
 
         /* =========================
-        ORDER FILTERS
+           FILTERS
         ========================= */
 
         .order-filters {
@@ -184,9 +198,8 @@
             border-color: #d4af37;
         }
 
-
         /* =========================
-        ORDER CARD
+           ORDERS
         ========================= */
 
         .orders-container {
@@ -219,11 +232,11 @@
         .order-date {
             color: #777;
             font-size: 13px;
+            margin-top: 5px;
         }
 
-
         /* =========================
-        STATUS
+           STATUS
         ========================= */
 
         .status {
@@ -254,9 +267,8 @@
             color: #dc3545;
         }
 
-
         /* =========================
-        CUSTOMER INFO
+           CUSTOMER
         ========================= */
 
         .customer-info {
@@ -269,15 +281,15 @@
         .customer-info p {
             color: #aaa;
             font-size: 14px;
+            word-break: break-word;
         }
 
         .customer-info strong {
             color: #fff;
         }
 
-
         /* =========================
-        ORDER ITEMS
+           ITEMS
         ========================= */
 
         .order-items {
@@ -301,11 +313,11 @@
         .order-item-price {
             color: #d4af37;
             font-weight: 600;
+            white-space: nowrap;
         }
 
-
         /* =========================
-        ORDER FOOTER
+           FOOTER
         ========================= */
 
         .order-footer {
@@ -325,11 +337,11 @@
         .payment-method {
             color: #888;
             font-size: 13px;
+            margin-top: 5px;
         }
 
-
         /* =========================
-        ACTION BUTTONS
+           ACTIONS
         ========================= */
 
         .order-actions {
@@ -367,15 +379,27 @@
             color: #fff;
         }
 
-        .action-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
+        /* =========================
+           REFRESH
+        ========================= */
+
+        .refresh-btn {
+            padding: 10px 18px;
+            background: #d4af37;
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-bottom: 20px;
         }
 
+        .refresh-btn:hover {
+            opacity: 0.85;
+        }
 
         /* =========================
-        EMPTY STATE
+           EMPTY / LOADING
         ========================= */
 
         .empty-state {
@@ -390,36 +414,20 @@
             color: #444;
         }
 
-
-        /* =========================
-        LOADING
-        ========================= */
-
         .loading {
             text-align: center;
             padding: 50px;
             color: #d4af37;
         }
 
-
-        /* =========================
-        REFRESH BUTTON
-        ========================= */
-
-        .refresh-btn {
-            padding: 10px 18px;
-            background: #d4af37;
-            color: #000;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            margin-bottom: 20px;
+        .error-message {
+            color: #dc3545;
+            margin-top: 10px;
+            font-size: 14px;
         }
 
-
         /* =========================
-        RESPONSIVE
+           RESPONSIVE
         ========================= */
 
         @media (max-width: 900px) {
@@ -431,9 +439,7 @@
             .stock-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-
         }
-
 
         @media (max-width: 600px) {
 
@@ -445,14 +451,8 @@
                 padding: 20px;
             }
 
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .stock-grid {
-                grid-template-columns: 1fr;
-            }
-
+            .stats-grid,
+            .stock-grid,
             .customer-info {
                 grid-template-columns: 1fr;
             }
@@ -470,6 +470,18 @@
                 width: 100%;
             }
 
+            .stock-control {
+                flex-direction: column;
+            }
+
+            .stock-control button {
+                width: 100%;
+            }
+
+            .order-item {
+                flex-direction: column;
+                gap: 5px;
+            }
         }
     </style>
 </head>
@@ -478,19 +490,20 @@
 <body>
 
     <!-- =========================
-    NAVBAR
-    ========================= -->
+         NAVBAR
+    ========================== -->
 
     <header>
-
         <nav class="navbar">
 
             <a href="index.html" class="logo">
                 HASSI <span>Signature Noir</span>
             </a>
 
-            <button class="menu-btn" id="menuBtn">
+            <button class="menu-btn" id="menuBtn" type="button" aria-label="Open Menu">
+
                 <i class="fa-solid fa-bars"></i>
+
             </button>
 
             <ul class="nav-menu" id="navMenu">
@@ -522,13 +535,12 @@
             </ul>
 
         </nav>
-
     </header>
 
 
     <!-- =========================
-    ADMIN DASHBOARD
-    ========================= -->
+         ADMIN DASHBOARD
+    ========================== -->
 
     <section class="admin-page">
 
@@ -538,51 +550,92 @@
 
                 <span>✦ ADMIN DASHBOARD ✦</span>
 
-                <h1>📦 Order & Stock Management</h1>
+                <h1>
+                    📦 Order & Stock Management
+                </h1>
 
                 <p>
                     Manage orders and stock in real time.
+                </p>
+
+                <p class="admin-email">
+                    🔐 Admin: hassanali590110@gmail.com
                 </p>
 
             </div>
 
 
             <!-- =========================
-            STATS
-            ========================= -->
+                 STATS
+            ========================== -->
 
             <div class="stats-grid">
 
                 <div class="stat-card">
+
                     <i class="fa-solid fa-clock"></i>
-                    <h3 id="pendingCount">0</h3>
-                    <p>Pending Orders</p>
+
+                    <h3 id="pendingCount">
+                        0
+                    </h3>
+
+                    <p>
+                        Pending Orders
+                    </p>
+
                 </div>
 
+
                 <div class="stat-card">
+
                     <i class="fa-solid fa-circle-check"></i>
-                    <h3 id="deliveredCount">0</h3>
-                    <p>Delivered Orders</p>
+
+                    <h3 id="deliveredCount">
+                        0
+                    </h3>
+
+                    <p>
+                        Delivered Orders
+                    </p>
+
                 </div>
 
+
                 <div class="stat-card">
+
                     <i class="fa-solid fa-box"></i>
-                    <h3 id="totalOrders">0</h3>
-                    <p>Total Orders</p>
+
+                    <h3 id="totalOrders">
+                        0
+                    </h3>
+
+                    <p>
+                        Total Orders
+                    </p>
+
                 </div>
 
+
                 <div class="stat-card">
+
                     <i class="fa-solid fa-users"></i>
-                    <h3 id="totalUsers">0</h3>
-                    <p>Total Users</p>
+
+                    <h3 id="totalUsers">
+                        0
+                    </h3>
+
+                    <p>
+                        Total Users
+                    </p>
+
                 </div>
 
             </div>
 
 
             <!-- =========================
-            STOCK MANAGEMENT
-            ========================= -->
+                 STOCK MANAGEMENT
+            ========================== -->
 
             <div class="admin-section">
 
@@ -603,8 +656,8 @@
 
 
             <!-- =========================
-            ORDERS
-            ========================= -->
+                 ORDERS
+            ========================== -->
 
             <div class="admin-section">
 
@@ -613,32 +666,49 @@
                     Orders
                 </h2>
 
-                <button class="refresh-btn" id="refreshOrders">
+
+                <button class="refresh-btn" id="refreshOrders" type="button">
+
                     <i class="fa-solid fa-rotate"></i>
                     Refresh
+
                 </button>
 
 
                 <div class="order-filters">
 
-                    <button class="filter-btn active" data-filter="all">
+                    <button class="filter-btn active" data-filter="all" type="button">
+
                         📋 All
+
                     </button>
 
-                    <button class="filter-btn" data-filter="processing">
+
+                    <button class="filter-btn" data-filter="processing" type="button">
+
                         ⏳ Processing
+
                     </button>
 
-                    <button class="filter-btn" data-filter="shipped">
+
+                    <button class="filter-btn" data-filter="shipped" type="button">
+
                         🚚 Shipped
+
                     </button>
 
-                    <button class="filter-btn" data-filter="delivered">
+
+                    <button class="filter-btn" data-filter="delivered" type="button">
+
                         ✅ Delivered
+
                     </button>
 
-                    <button class="filter-btn" data-filter="cancelled">
+
+                    <button class="filter-btn" data-filter="cancelled" type="button">
+
                         ❌ Cancelled
+
                     </button>
 
                 </div>
@@ -660,8 +730,8 @@
 
 
     <!-- =========================
-    FOOTER
-    ========================= -->
+         FOOTER
+    ========================== -->
 
     <footer class="footer">
 
@@ -669,7 +739,9 @@
 
             <div class="footer-box">
 
-                <h3>HASSI</h3>
+                <h3>
+                    HASSI
+                </h3>
 
                 <p>
                     Luxury perfumes crafted for elegance.
@@ -680,24 +752,38 @@
 
             <div class="footer-box">
 
-                <h3>Quick Links</h3>
+                <h3>
+                    Quick Links
+                </h3>
 
-                <a href="index.html">Home</a>
+                <a href="index.html">
+                    Home
+                </a>
 
-                <a href="index.html#products">Shop</a>
+                <a href="index.html#products">
+                    Shop
+                </a>
 
-                <a href="orders.html">Orders</a>
+                <a href="orders.html">
+                    Orders
+                </a>
 
-                <a href="tracking.html">Track</a>
+                <a href="tracking.html">
+                    Track
+                </a>
 
-                <a href="contact.html">Contact</a>
+                <a href="contact.html">
+                    Contact
+                </a>
 
             </div>
 
 
             <div class="footer-box">
 
-                <h3>Contact</h3>
+                <h3>
+                    Contact
+                </h3>
 
                 <p>
                     hassanali590110@gmail.com
@@ -715,7 +801,8 @@
         <div class="footer-bottom">
 
             <p>
-                © 2026 HASSI Signature Noir. All rights reserved.
+                © 2026 HASSI Signature Noir.
+                All rights reserved.
             </p>
 
         </div>
@@ -724,12 +811,13 @@
 
 
     <!-- =========================
-    FIREBASE + ADMIN JAVASCRIPT
-    ========================= -->
+         FIREBASE + ADMIN SCRIPT
+    ========================== -->
 
     <script type="module">
 
         import {
+            auth,
             db,
             collection,
             getDocs,
@@ -737,45 +825,87 @@
             updateDoc,
             onSnapshot,
             query,
-            orderBy
+            orderBy,
+            onAuthStateChanged
         } from './firebase.js';
 
 
-        // ====================================
-        // GLOBAL VARIABLES
-        // ====================================
+        /* =========================
+           ADMIN SECURITY
+        ========================== */
+
+        const ADMIN_EMAIL =
+            "hassanali590110@gmail.com";
+
+
+        /* =========================
+           GLOBAL VARIABLES
+        ========================== */
 
         let allOrders = [];
 
-        let currentFilter = 'all';
+        let currentFilter = "all";
+
+        let products = [];
 
 
-        // ====================================
-        // FORMAT PRICE
-        // ====================================
+        /* =========================
+           HTML ESCAPE
+        ========================== */
+
+        function escapeHTML(value) {
+
+            if (value === null || value === undefined) {
+                return "";
+            }
+
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+
+        /* =========================
+           FORMAT PRICE
+        ========================== */
 
         function formatPrice(price) {
 
             return Number(price || 0)
-                .toLocaleString('en-PK');
+                .toLocaleString("en-PK");
 
         }
 
 
-        // ====================================
-        // FORMAT DATE
-        // ====================================
+        /* =========================
+           FORMAT DATE
+        ========================== */
 
         function formatDate(dateValue) {
 
             if (!dateValue) {
-                return 'Unknown Date';
+                return "Unknown Date";
             }
 
             try {
 
                 if (
-                    typeof dateValue === 'object' &&
+                    typeof dateValue === "object" &&
+                    typeof dateValue.toDate === "function"
+                ) {
+
+                    return dateValue
+                        .toDate()
+                        .toLocaleString();
+
+                }
+
+
+                if (
+                    typeof dateValue === "object" &&
                     dateValue.seconds
                 ) {
 
@@ -785,102 +915,158 @@
 
                 }
 
-                return new Date(dateValue)
-                    .toLocaleString();
+
+                const date =
+                    new Date(dateValue);
+
+
+                if (isNaN(date.getTime())) {
+                    return "Unknown Date";
+                }
+
+
+                return date.toLocaleString();
 
             } catch (error) {
 
-                return String(dateValue);
+                return "Unknown Date";
 
             }
 
         }
 
 
-        // ====================================
-        // STATUS LABEL
-        // ====================================
+        /* =========================
+           STATUS LABEL
+        ========================== */
 
         function getStatusLabel(status) {
 
             const labels = {
 
-                processing: '⏳ Processing',
+                processing:
+                    "⏳ Processing",
 
-                shipped: '🚚 Shipped',
+                shipped:
+                    "🚚 Shipped",
 
-                delivered: '✅ Delivered',
+                delivered:
+                    "✅ Delivered",
 
-                cancelled: '❌ Cancelled'
+                cancelled:
+                    "❌ Cancelled"
 
             };
 
-            return labels[status] || '⏳ Processing';
+            return labels[status] ||
+                "⏳ Processing";
 
         }
 
 
-        // ====================================
-        // UPDATE DASHBOARD STATS
-        // ====================================
+        /* =========================
+           UPDATE STATS
+        ========================== */
 
         function updateStats() {
 
             const pending =
-                allOrders.filter(
-                    order =>
-                        order.status === 'processing' ||
-                        order.status === 'shipped'
+                allOrders.filter(order =>
+
+                    order.status === "processing" ||
+                    order.status === "shipped"
+
                 ).length;
 
 
             const delivered =
-                allOrders.filter(
-                    order =>
-                        order.status === 'delivered'
+                allOrders.filter(order =>
+
+                    order.status === "delivered"
+
                 ).length;
 
 
-            document.getElementById(
-                'pendingCount'
-            ).textContent = pending;
+            document
+                .getElementById("pendingCount")
+                .textContent = pending;
 
 
-            document.getElementById(
-                'deliveredCount'
-            ).textContent = delivered;
+            document
+                .getElementById("deliveredCount")
+                .textContent = delivered;
 
 
-            document.getElementById(
-                'totalOrders'
-            ).textContent =
+            document
+                .getElementById("totalOrders")
+                .textContent =
                 allOrders.length;
 
         }
 
 
-        // ====================================
-        // DISPLAY ORDERS
-        // ====================================
+        /* =========================
+           LOAD USERS
+        ========================== */
+
+        async function loadUsers() {
+
+            try {
+
+                const usersSnapshot =
+                    await getDocs(
+                        collection(db, "users")
+                    );
+
+
+                document
+                    .getElementById("totalUsers")
+                    .textContent =
+                    usersSnapshot.size;
+
+
+            } catch (error) {
+
+                console.error(
+                    "Users Error:",
+                    error
+                );
+
+                document
+                    .getElementById("totalUsers")
+                    .textContent = "0";
+
+            }
+
+        }
+
+
+        /* =========================
+           DISPLAY ORDERS
+        ========================== */
 
         function displayOrders() {
 
             const container =
                 document.getElementById(
-                    'ordersContainer'
+                    "ordersContainer"
                 );
 
 
-            let orders = [...allOrders];
+            let orders =
+                [...allOrders];
 
 
-            if (currentFilter !== 'all') {
+            if (currentFilter !== "all") {
 
                 orders =
-                    orders.filter(
-                        order =>
-                            order.status ===
-                            currentFilter
+                    orders.filter(order =>
+
+                        (
+                            order.status ||
+                            "processing"
+                        ) === currentFilter
+
                     );
 
             }
@@ -894,10 +1080,13 @@
 
                         <i class="fa-solid fa-box-open"></i>
 
-                        <h3>No Orders Found</h3>
+                        <h3>
+                            No Orders Found
+                        </h3>
 
                         <p>
-                            There are no orders in this category.
+                            There are no orders
+                            in this category.
                         </p>
 
                     </div>
@@ -910,17 +1099,18 @@
 
 
             container.innerHTML =
-                orders.map(
-                    order =>
+                orders
+                    .map(order =>
                         createOrderCard(order)
-                ).join('');
+                    )
+                    .join("");
 
         }
 
 
-        // ====================================
-        // CREATE ORDER CARD
-        // ====================================
+        /* =========================
+           CREATE ORDER CARD
+        ========================== */
 
         function createOrderCard(order) {
 
@@ -931,58 +1121,92 @@
 
 
             const status =
-                order.status || 'processing';
+                order.status ||
+                "processing";
 
 
             const billing =
-                order.billing || {};
+                order.billing ||
+                {};
 
 
-            let itemsHTML = '';
+            let itemsHTML = "";
 
 
-            items.forEach(item => {
+            if (items.length === 0) {
 
-                itemsHTML += `
+                itemsHTML = `
 
-                    <div class="order-item">
-
-                        <span class="order-item-name">
-
-                            ${item.name || 'Product'}
-
-                            × ${item.quantity || 1}
-
-                        </span>
-
-                        <span class="order-item-price">
-
-                            Rs.
-                            ${formatPrice(
-                    (Number(item.price) || 0) *
-                    (Number(item.quantity) || 1)
-                )}
-
-                        </span>
-
+                    <div class="empty-state">
+                        No product items found.
                     </div>
 
                 `;
 
-            });
+            } else {
+
+                items.forEach(item => {
+
+                    const quantity =
+                        Number(
+                            item.quantity
+                        ) || 1;
 
 
-            let actionButtons = '';
+                    const price =
+                        Number(
+                            item.price
+                        ) || 0;
 
 
-            if (status === 'processing') {
+                    itemsHTML += `
+
+                        <div class="order-item">
+
+                            <span class="order-item-name">
+
+                                ${escapeHTML(
+                        item.name ||
+                        "Product"
+                    )}
+
+                                × ${quantity}
+
+                            </span>
+
+
+                            <span
+                                class="order-item-price">
+
+                                Rs.
+                                ${formatPrice(
+                        price * quantity
+                    )}
+
+                            </span>
+
+                        </div>
+
+                    `;
+
+                });
+
+            }
+
+
+            let actionButtons = "";
+
+
+            if (status === "processing") {
 
                 actionButtons = `
 
                     <button
                         class="action-btn ship-btn"
                         onclick="changeOrderStatus(
-                            '${order.firebaseId}',
+                            '${escapeHTML(
+                    order.firebaseId
+                )}',
                             'shipped'
                         )">
 
@@ -994,7 +1218,9 @@
                     <button
                         class="action-btn deliver-btn"
                         onclick="changeOrderStatus(
-                            '${order.firebaseId}',
+                            '${escapeHTML(
+                    order.firebaseId
+                )}',
                             'delivered'
                         )">
 
@@ -1006,7 +1232,9 @@
                     <button
                         class="action-btn cancel-btn"
                         onclick="changeOrderStatus(
-                            '${order.firebaseId}',
+                            '${escapeHTML(
+                    order.firebaseId
+                )}',
                             'cancelled'
                         )">
 
@@ -1019,14 +1247,16 @@
             }
 
 
-            if (status === 'shipped') {
+            if (status === "shipped") {
 
                 actionButtons = `
 
                     <button
                         class="action-btn deliver-btn"
                         onclick="changeOrderStatus(
-                            '${order.firebaseId}',
+                            '${escapeHTML(
+                    order.firebaseId
+                )}',
                             'delivered'
                         )">
 
@@ -1038,7 +1268,9 @@
                     <button
                         class="action-btn cancel-btn"
                         onclick="changeOrderStatus(
-                            '${order.firebaseId}',
+                            '${escapeHTML(
+                    order.firebaseId
+                )}',
                             'cancelled'
                         )">
 
@@ -1061,9 +1293,15 @@
 
                             <div class="order-id">
 
-                                📦 Order #${order.id || order.firebaseId}
+                                📦 Order #
+
+                                ${escapeHTML(
+                order.id ||
+                order.firebaseId
+            )}
 
                             </div>
+
 
                             <div class="order-date">
 
@@ -1077,9 +1315,14 @@
                         </div>
 
 
-                        <span class="status ${status}">
+                        <span
+                            class="status ${escapeHTML(
+                status
+            )}">
 
-                            ${getStatusLabel(status)}
+                            ${getStatusLabel(
+                status
+            )}
 
                         </span>
 
@@ -1089,25 +1332,54 @@
                     <div class="customer-info">
 
                         <p>
+
                             👤
+
                             <strong>
-                                ${billing.name || 'N/A'}
+
+                                ${escapeHTML(
+                billing.name ||
+                "N/A"
+            )}
+
                             </strong>
+
                         </p>
 
+
                         <p>
+
                             📧
-                            ${billing.email || 'N/A'}
+
+                            ${escapeHTML(
+                billing.email ||
+                "N/A"
+            )}
+
                         </p>
 
+
                         <p>
+
                             📞
-                            ${billing.phone || 'N/A'}
+
+                            ${escapeHTML(
+                billing.phone ||
+                "N/A"
+            )}
+
                         </p>
 
+
                         <p>
+
                             📍
-                            ${billing.address || 'N/A'}
+
+                            ${escapeHTML(
+                billing.address ||
+                "N/A"
+            )}
+
                         </p>
 
                     </div>
@@ -1134,11 +1406,15 @@
 
                             </div>
 
+
                             <div class="payment-method">
 
                                 💳
-                                ${order.paymentMethod ||
-                'Cash on Delivery'}
+
+                                ${escapeHTML(
+                order.paymentMethod ||
+                "Cash on Delivery"
+            )}
 
                             </div>
 
@@ -1150,14 +1426,15 @@
                     ${actionButtons
                     ? `
 
-                        <div class="order-actions">
+                                <div
+                                    class="order-actions">
 
-                            ${actionButtons}
+                                    ${actionButtons}
 
-                        </div>
+                                </div>
 
-                    `
-                    : ''
+                            `
+                    : ""
                 }
 
                 </div>
@@ -1167,9 +1444,9 @@
         }
 
 
-        // ====================================
-        // CHANGE ORDER STATUS
-        // ====================================
+        /* =========================
+           CHANGE ORDER STATUS
+        ========================== */
 
         async function changeOrderStatus(
             firebaseId,
@@ -1179,7 +1456,7 @@
             if (!firebaseId) {
 
                 alert(
-                    '❌ Firebase order ID missing!'
+                    "❌ Firebase order ID missing!"
                 );
 
                 return;
@@ -1189,7 +1466,7 @@
 
             const confirmAction =
                 confirm(
-                    `Are you sure you want to mark this order as ${newStatus}?`
+                    `Are you sure you want to change this order to "${newStatus}"?`
                 );
 
 
@@ -1204,7 +1481,7 @@
 
                     doc(
                         db,
-                        'orders',
+                        "orders",
                         firebaseId
                     ),
 
@@ -1219,20 +1496,20 @@
 
 
                 alert(
-                    `✅ Order updated to ${newStatus}!`
+                    `✅ Order status changed to ${newStatus}!`
                 );
 
 
             } catch (error) {
 
                 console.error(
-                    'Status Update Error:',
+                    "Status Update Error:",
                     error
                 );
 
 
                 alert(
-                    '❌ Failed to update order status. Check Firebase permissions.'
+                    "❌ Failed to update order. Check Firebase Firestore Rules."
                 );
 
             }
@@ -1240,170 +1517,352 @@
         }
 
 
-        // ====================================
-        // LOAD ORDERS
-        // ====================================
+        /* =========================
+           LOAD ORDERS REAL-TIME
+        ========================== */
 
         function loadOrders() {
 
-            const ordersQuery =
-                query(
-                    collection(
-                        db,
-                        'orders'
-                    ),
-                    orderBy(
-                        'createdAt',
-                        'desc'
-                    )
-                );
+            try {
+
+                const ordersQuery =
+                    query(
+
+                        collection(
+                            db,
+                            "orders"
+                        ),
+
+                        orderBy(
+                            "createdAt",
+                            "desc"
+                        )
+
+                    );
 
 
-            onSnapshot(
+                onSnapshot(
 
-                ordersQuery,
+                    ordersQuery,
 
-                snapshot => {
+                    snapshot => {
 
-                    allOrders =
-                        snapshot.docs.map(
-                            document => ({
+                        allOrders =
+                            snapshot.docs.map(
+                                document => ({
 
-                                firebaseId:
-                                    document.id,
+                                    firebaseId:
+                                        document.id,
 
-                                ...document.data()
+                                    ...document.data()
 
-                            })
+                                })
+                            );
+
+
+                        updateStats();
+
+                        displayOrders();
+
+
+                        console.log(
+                            "✅ Orders loaded:",
+                            allOrders.length
+                        );
+
+                    },
+
+
+                    error => {
+
+                        console.error(
+                            "Firebase Orders Error:",
+                            error
                         );
 
 
-                    updateStats();
+                        document
+                            .getElementById(
+                                "ordersContainer"
+                            )
+                            .innerHTML = `
 
-                    displayOrders();
+                                <div
+                                    class="empty-state">
 
-                    console.log(
-                        '✅ Orders loaded:',
-                        allOrders.length
+                                    <i
+                                        class="fa-solid fa-triangle-exclamation">
+                                    </i>
+
+                                    <h3>
+                                        Failed to Load Orders
+                                    </h3>
+
+                                    <p>
+                                        ${escapeHTML(
+                                error.message ||
+                                "Check Firebase permissions."
+                            )
+                            }
+                                    </p>
+
+                                </div>
+
+                            `;
+
+                    }
+
+                );
+
+            } catch (error) {
+
+                console.error(
+                    "Orders Query Error:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        /* =========================
+           LOAD STOCK
+        ========================== */
+
+        async function loadStock() {
+
+            const container =
+                document.getElementById(
+                    "stockContainer"
+                );
+
+
+            try {
+
+                const snapshot =
+                    await getDocs(
+                        collection(
+                            db,
+                            "products"
+                        )
                     );
 
-                },
 
+                products =
+                    snapshot.docs.map(
+                        document => ({
 
-                error => {
+                            firebaseId:
+                                document.id,
 
-                    console.error(
-                        'Firebase Orders Error:',
-                        error
+                            ...document.data()
+
+                        })
                     );
 
 
-                    document.getElementById(
-                        'ordersContainer'
-                    ).innerHTML = `
+                if (products.length === 0) {
+
+                    container.innerHTML = `
 
                         <div class="empty-state">
 
-                            <i class="fa-solid fa-triangle-exclamation"></i>
+                            <i
+                                class="fa-solid fa-box-open">
+                            </i>
 
                             <h3>
-                                Failed to Load Orders
+                                No Products Found
                             </h3>
 
                             <p>
-                                Please check Firebase permissions and Firestore rules.
+                                Add products to
+                                your Firebase
+                                products collection.
                             </p>
 
                         </div>
 
                     `;
 
+                    return;
+
                 }
 
-            );
+
+                displayStock();
+
+
+            } catch (error) {
+
+                console.error(
+                    "Stock Error:",
+                    error
+                );
+
+
+                container.innerHTML = `
+
+                    <div class="empty-state">
+
+                        <i
+                            class="fa-solid fa-triangle-exclamation">
+                        </i>
+
+                        <h3>
+                            Failed to Load Products
+                        </h3>
+
+                        <p>
+                            ${escapeHTML(
+                    error.message
+                )}
+                        </p>
+
+                    </div>
+
+                `;
+
+            }
 
         }
 
 
-        // ====================================
-        // STOCK MANAGEMENT
-        // ====================================
-
-        const products = [
-
-            {
-                name: 'Rassasi Hawas Ice',
-
-                price: 8500,
-
-                category: 'Men',
-
-                stock: 10
-
-            }
-
-        ];
-
+        /* =========================
+           DISPLAY STOCK
+        ========================== */
 
         function displayStock() {
 
             const container =
                 document.getElementById(
-                    'stockContainer'
+                    "stockContainer"
                 );
 
 
             container.innerHTML =
-                products.map(
-                    (product, index) => `
+                products
+                    .map(
+                        (product, index) => `
 
-                    <div class="stock-card">
+                            <div
+                                class="stock-card">
 
-                        <h3>
-                            ${product.name}
-                        </h3>
+                                <h3>
 
-                        <p>
-                            Rs.
-                            ${formatPrice(
-                        product.price
-                    )}
-                        </p>
+                                    ${escapeHTML(
+                            product.name ||
+                            "Product"
+                        )}
 
-                        <p>
-                            Stock:
-                            <strong>
-                                ${product.stock}
-                            </strong>
-                        </p>
+                                </h3>
 
-                        <div class="stock-control">
 
-                            <input
-                                type="number"
-                                min="0"
-                                value="${product.stock}"
-                                id="stock-${index}"
-                            >
+                                <p
+                                    class="stock-price">
 
-                            <button
-                                onclick="updateStock(${index})">
+                                    Rs.
 
-                                Update
+                                    ${formatPrice(
+                            product.price
+                        )}
 
-                            </button>
+                                </p>
 
-                        </div>
 
-                    </div>
+                                <p
+                                    class="stock-category">
 
-                `
-                ).join('');
+                                    Category:
+
+                                    ${escapeHTML(
+                            product.category ||
+                            "Uncategorized"
+                        )}
+
+                                    <br><br>
+
+                                    Stock:
+
+                                    <strong
+                                        class="stock-number">
+
+                                        ${Number(
+                            product.stock
+                        ) || 0}
+
+                                    </strong>
+
+                                </p>
+
+
+                                <div
+                                    class="stock-control">
+
+                                    <input
+                                        type="number"
+                                        min="0"
+                                        value="${Number(
+                            product.stock
+                        ) || 0
+                            }"
+                                        id="stock-${index}"
+                                    >
+
+
+                                    <button
+                                        type="button"
+                                        onclick="updateStock(
+                                            ${index}
+                                        )">
+
+                                        Update
+
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        `
+                    )
+                    .join("");
 
         }
 
 
-        function updateStock(index) {
+        /* =========================
+           UPDATE STOCK FIREBASE
+        ========================== */
+
+        async function updateStock(index) {
+
+            const product =
+                products[index];
+
+
+            if (!product) {
+
+                alert(
+                    "❌ Product not found!"
+                );
+
+                return;
+
+            }
+
+
+            if (!product.firebaseId) {
+
+                alert(
+                    "❌ Firebase product ID missing!"
+                );
+
+                return;
+
+            }
+
 
             const input =
                 document.getElementById(
@@ -1421,7 +1880,7 @@
             ) {
 
                 alert(
-                    '❌ Please enter a valid stock number.'
+                    "❌ Please enter a valid stock number."
                 );
 
                 return;
@@ -1429,48 +1888,83 @@
             }
 
 
-            products[index].stock =
-                newStock;
+            try {
+
+                await updateDoc(
+
+                    doc(
+                        db,
+                        "products",
+                        product.firebaseId
+                    ),
+
+                    {
+                        stock: newStock,
+
+                        updatedAt:
+                            new Date().toISOString()
+                    }
+
+                );
 
 
-            displayStock();
+                products[index].stock =
+                    newStock;
 
 
-            alert(
-                '✅ Stock updated!'
-            );
+                displayStock();
+
+
+                alert(
+                    "✅ Stock updated successfully!"
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Stock Update Error:",
+                    error
+                );
+
+
+                alert(
+                    "❌ Failed to update stock. Check Firebase Firestore Rules."
+                );
+
+            }
 
         }
 
 
-        // ====================================
-        // FILTER BUTTONS
-        // ====================================
+        /* =========================
+           FILTER BUTTONS
+        ========================== */
 
         document
-            .querySelectorAll(
-                '.filter-btn'
-            )
+            .querySelectorAll(".filter-btn")
             .forEach(button => {
 
                 button.addEventListener(
-                    'click',
+                    "click",
                     () => {
 
                         document
                             .querySelectorAll(
-                                '.filter-btn'
+                                ".filter-btn"
                             )
                             .forEach(btn =>
-                                btn.classList.remove(
-                                    'active'
-                                )
+
+                                btn.classList
+                                    .remove(
+                                        "active"
+                                    )
+
                             );
 
 
-                        button.classList.add(
-                            'active'
-                        );
+                        button.classList
+                            .add("active");
 
 
                         currentFilter =
@@ -1485,76 +1979,137 @@
             });
 
 
-        // ====================================
-        // REFRESH
-        // ====================================
+        /* =========================
+           REFRESH BUTTON
+        ========================== */
 
         document
             .getElementById(
-                'refreshOrders'
+                "refreshOrders"
             )
             .addEventListener(
-                'click',
-                () => {
+                "click",
+                async () => {
 
-                    displayOrders();
+                    await loadUsers();
+
+                    await loadStock();
 
                     updateStats();
 
+                    displayOrders();
+
+
                     alert(
-                        '✅ Dashboard refreshed!'
+                        "✅ Dashboard refreshed!"
                     );
 
                 }
             );
 
 
-        // ====================================
-        // MOBILE MENU
-        // ====================================
+        /* =========================
+           MOBILE MENU
+        ========================== */
 
         document
             .getElementById(
-                'menuBtn'
+                "menuBtn"
             )
             ?.addEventListener(
-                'click',
+                "click",
                 () => {
 
                     document
                         .getElementById(
-                            'navMenu'
+                            "navMenu"
                         )
-                        ?.classList.toggle(
-                            'active'
+                        ?.classList
+                        .toggle(
+                            "active"
                         );
 
                 }
             );
 
 
-        // ====================================
-        // MAKE FUNCTIONS GLOBAL
-        // ====================================
+        /* =========================
+           GLOBAL FUNCTIONS
+        ========================== */
 
         window.changeOrderStatus =
             changeOrderStatus;
+
 
         window.updateStock =
             updateStock;
 
 
-        // ====================================
-        // INITIAL LOAD
-        // ====================================
+        /* =========================
+           START DASHBOARD
+        ========================== */
 
-        displayStock();
+        function startAdminDashboard() {
 
-        loadOrders();
+            loadStock();
+
+            loadOrders();
+
+            loadUsers();
 
 
-        console.log(
-            '✅ HASSI Admin Dashboard Loaded!'
+            console.log(
+                "✅ HASSI Admin Dashboard Started!"
+            );
+
+        }
+
+
+        /* =========================
+           AUTH STATE
+        ========================== */
+
+        onAuthStateChanged(
+            auth,
+            user => {
+
+                if (!user) {
+
+                    window.location.href =
+                        "login.html";
+
+                    return;
+
+                }
+
+
+                if (
+                    user.email !==
+                    ADMIN_EMAIL
+                ) {
+
+                    alert(
+                        "❌ Access Denied! Admin only."
+                    );
+
+
+                    window.location.href =
+                        "index.html";
+
+                    return;
+
+                }
+
+
+                console.log(
+                    "✅ Admin Access Granted:",
+                    user.email
+                );
+
+
+                startAdminDashboard();
+
+            }
         );
 
     </script>
